@@ -2,6 +2,7 @@
   <div class="waterfall-height-css">
     <div class="image-box" v-for="img in imgList" :key="img.url">
       <el-image id="img_s" :src="img.url" :preview-src-list="srcList" :fit="cover"/>
+      <!-- <img id="img_s" :src="img.url" :preview-src-list="srcList" :fit="cover" class="el-image__inner el-image__preview"/> -->
     </div>
   </div>
 </template>
@@ -37,15 +38,18 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+
+
+<style lang="scss" scope>
 .waterfall-height-css {
   display: flex;
   flex-wrap: wrap;
   .image-box {
-    margin: 4px;
-    flex-grow: 0;
+    margin: 5px;
+    flex-grow: 1;
   }
-  img {
+  #img_s {
+    width: auto;
     display: block;
     min-width: 100%;
     height: 200px;
@@ -59,27 +63,10 @@ export default {
 }
 </style>
 
-<style lang="scss">
-.waterfall-height-css {
-  margin:0px 5% 0px 5%;
-  display: flex;
-  flex-wrap: wrap;
-  .image-box {
-    margin: 5px;
-    flex-grow: 1;
-  }
-  #img_s {
-    width: auto;
-    display: block;
-    min-width: 100%;
-    height: 300px;
-    object-fit: cover;
-  }
-  &:after {
-    content: '';
-    display: block;
-    flex-grow: 99999;
-  }
+<style>
+
+.el-image {
+  display: block;
 }
 
-</style>>
+</style>

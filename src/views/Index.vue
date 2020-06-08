@@ -54,7 +54,7 @@
         </el-header>
         
 	
-		<center><h2>Some pictures</h2></center>
+		<center><h2><strong>Some pictures</strong></h2></center>
   		<List></List>
 		
         
