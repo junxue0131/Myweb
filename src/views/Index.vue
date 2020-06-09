@@ -103,3 +103,12 @@ export default {
   }
 
 </style>
+
+<style>
+
+
+html,body{overflow:hidden;overflow-y:auto;}
+.selector::-webkit-scrollbar { display: none }
+
+
+</style>
