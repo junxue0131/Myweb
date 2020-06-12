@@ -56,6 +56,8 @@
 	
 		<center><h2><strong>Some pictures</strong></h2></center>
   		<List></List>
+
+		<Upload></Upload>
 		
         
         <!-- Footer -->
@@ -77,11 +79,13 @@
 
 <script>
 import List from '../components/List'
+import Upload from '../components/Upload'
 
 export default {
 	name: "index",
 	components: {
-		List
+		List,
+		Upload
 	},
     data() {
       return {

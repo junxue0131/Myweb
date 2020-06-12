@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div id="container">
     <div class="waterfall-height-css" v-loading="isloading">
       <div class="image-box" v-for="img in imgList" :key="img.url">
         <el-row>
@@ -9,19 +10,33 @@
         </el-row>
       </div>
     </div>
+    </div>
     <!-- <div class="newList-list"  v-if="(!isloading) && (arrData.length === 0)">暂无数据</div> -->
 
   
-    <el-row id="container">
-        <el-pagination 
+        <!-- 翻页组件 -->
+        <!-- <el-pagination 
         small="true"
         background layout="prev, pager, next" 
         :total="total"
         :page-size="pageSize"
         :current-page.sync="currentPage"
         style="width:10px;">
-        </el-pagination>
-    </el-row>
+        </el-pagination> -->
+
+        <!-- 自定义按钮 -->
+        <!-- <div style="height:2rem;width:7.5rem;">
+          <div class="el-icon-arrow-left" style="width:3.25rem;height:2rem;display:inline-block;"></div>
+          <div class="el-icon-arrow-right  el-icon--right" style="width:3.25rem;height:2rem;display:inline-block;"></div>
+        </div> -->
+
+        <!-- 原生按钮 -->  
+        <center>
+          <el-button size="mini" icon="el-icon-arrow-left" id="pageButton" @click="prevPage">上一页</el-button>
+          <span :page="currentPage">{{currentPage}}</span>
+          <el-button size="mini" type="primary" id="pageButton" @click="nextPage">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+        </center>
+          
     
   </div>
 </template>
@@ -75,6 +90,20 @@ export default {
     },
     sleep () {
         return new Promise((resolve) => setTimeout(resolve, 500));
+    },
+    nextPage() {
+      if (this.currentPage < this.total / this.pageSize) {
+        this.currentPage++;
+      }
+      
+    },
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+    },
+    cover() {
+      
     }
   },
   created() {
@@ -116,8 +145,14 @@ export default {
 }
 
 #container {
-  display: grid;
-  grid-template-columns: 45% auto 50%;
+    min-height: 200px;
+}
+
+#pageButton {
+  font-size: 30%;
+  margin-left: 0;
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
 }
 
 </style>
