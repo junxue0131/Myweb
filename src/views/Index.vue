@@ -8,16 +8,18 @@
 							<li class="current"><a href="index.html">首页</a></li>
 							<li class="current"><a href="index.html">文章</a></li>
 							<li class="current"><a href="index.html">个人介绍</a></li>
-							<li class="current"><a href="index.html">实验室
-								<el-dropdown>
-									<span class="el-dropdown-link">
-										<i class="el-icon-arrow-down el-icon--right"></i>
-									</span>
-									<el-dropdown-menu slot="dropdown">
-										<el-dropdown-item >Mybatis演示</el-dropdown-item>
-										<el-dropdown-item >Springboot演示</el-dropdown-item>
-									</el-dropdown-menu>
-									</el-dropdown>
+							<li class="current test"><a href="#">
+								<van-cell border="false" @click="showPopup" 
+								style="padding: 0 0 0 0;background: inherit;color: #ffffff; text-align: left;"
+								id="test">
+									展示弹出层
+								</van-cell>
+        						<van-popup v-model="show"  position="left" :style="{ height: '100%', width: '30%' }">
+									<Upload></Upload>
+									<Upload></Upload>
+									<Upload></Upload>
+            						<van-cell title="文本" />
+								</van-popup>
 							</a></li>
 						</ul>
 					</nav>
@@ -56,8 +58,6 @@
 	
 		<center><h2><strong>Some pictures</strong></h2></center>
   		<List></List>
-
-		<Upload></Upload>
 		
         
         <!-- Footer -->
@@ -80,6 +80,10 @@
 <script>
 import List from '../components/List'
 import Upload from '../components/Upload'
+import Vue from 'vue';
+import { Cell, CellGroup } from 'vant';
+
+Vue.use(Cell);
 
 export default {
 	name: "index",
@@ -89,9 +93,15 @@ export default {
 	},
     data() {
       return {
-        url: 'https://s1.ax1x.com/2020/06/06/tyibYn.png'
+		url: 'https://s1.ax1x.com/2020/06/06/tyibYn.png',
+		show: false
       }
-    }
+	},
+	methods: {
+		showPopup() {
+            this.show = true;
+        }
+	}
 }
 </script>
 
@@ -113,6 +123,16 @@ export default {
 
 html,body{overflow:hidden;overflow-y:auto;}
 .selector::-webkit-scrollbar { display: none }
+
+.van-cell::after {
+	position: fixed;
+}
+
+#test > .van-cell__value--alone {
+	color: #ffffff;
+}
+
+
 
 
 </style>

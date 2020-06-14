@@ -12,36 +12,7 @@
     </div>
     </div>
 
-
-    
-
-    <!-- <div class="newList-list"  v-if="(!isloading) && (arrData.length === 0)">暂无数据</div> -->
-
-  
-        <!-- 翻页组件 -->
-        <!-- <el-pagination 
-        small="true"
-        background layout="prev, pager, next" 
-        :total="total"
-        :page-size="pageSize"
-        :current-page.sync="currentPage"
-        style="width:10px;">
-        </el-pagination> -->
-
-        <!-- 自定义按钮 -->
-        <!-- <div style="height:2rem;width:7.5rem;">
-          <div class="el-icon-arrow-left" style="width:3.25rem;height:2rem;display:inline-block;"></div>
-          <div class="el-icon-arrow-right  el-icon--right" style="width:3.25rem;height:2rem;display:inline-block;"></div>
-        </div> -->
-
-        <!-- 原生按钮 -->  
-        <!-- <center>
-          <el-button size="mini" icon="el-icon-arrow-left" id="pageButton" @click="prevPage">上一页</el-button>
-          <span :page="currentPage">{{currentPage}}</span>
-          <el-button size="mini" type="primary" id="pageButton" @click="nextPage">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
-        </center> -->
-
-        <van-pagination v-model="currentPage" :page-count="Math.ceil(total/pageSize)" mode="simple" />
+    <van-pagination v-model="currentPage" :page-count="Math.ceil(total/pageSize)" mode="simple" />
           
     
   </div>
@@ -157,13 +128,6 @@ export default {
 
 #container {
     min-height: 200px;
-}
-
-#pageButton {
-  font-size: 30%;
-  margin-left: 0;
-  margin-top: 0.6rem;
-  margin-bottom: 0.6rem;
 }
 
 </style>
