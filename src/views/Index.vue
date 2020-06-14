@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <!-- header -->
-        <header id="header" class="alt">
+        <header id="header" class="alt" style="position: fixed;background: rgba(100, 88, 98, 0.2);">
 					<h1 id="logo"><a href="index.html">Xuejun</a></h1>
 					<nav id="nav">
 						<ul>

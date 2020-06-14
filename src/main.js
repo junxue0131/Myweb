@@ -19,6 +19,9 @@ import './assets/css/noscript.css' /*引入公共样式*/
 // import "./assets/js/util.js"
 // import "./assets/js/main_t.js"
 
+import '@vant/touch-emulator';
+
+
 
 Vue.config.productionTip = false
 

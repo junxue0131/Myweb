@@ -11,6 +11,10 @@
       </div>
     </div>
     </div>
+
+
+    
+
     <!-- <div class="newList-list"  v-if="(!isloading) && (arrData.length === 0)">暂无数据</div> -->
 
   
@@ -31,11 +35,13 @@
         </div> -->
 
         <!-- 原生按钮 -->  
-        <center>
+        <!-- <center>
           <el-button size="mini" icon="el-icon-arrow-left" id="pageButton" @click="prevPage">上一页</el-button>
           <span :page="currentPage">{{currentPage}}</span>
           <el-button size="mini" type="primary" id="pageButton" @click="nextPage">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
-        </center>
+        </center> -->
+
+        <van-pagination v-model="currentPage" :page-count="Math.ceil(total/pageSize)" mode="simple" />
           
     
   </div>
@@ -43,6 +49,11 @@
 
 
 <script>
+import Vue from 'vue';
+import { Pagination } from 'vant';
+
+Vue.use(Pagination);
+
 export default {
   name: 'HeightCss',
   data() {

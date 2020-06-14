@@ -1,10 +1,15 @@
 <template>
     <div>
-        <el-button type="primary" circle id="rrr" @click="dialogFormVisible = true">
+        <!-- <el-button type="primary" circle id="rrr" @click="dialogFormVisible = true">
             <center>
                 <i class="el-icon-edit" id="icon"></i>
             </center>
-        </el-button>
+        </el-button> -->
+
+        
+        <van-cell is-link @click="showPopup">展示弹出层</van-cell>
+        <van-popup v-model="show"  position="left" :style="{ height: '100%', width: '30%' }">内容</van-popup>
+        
 
         <el-dialog title="发表图片" :visible.sync="dialogFormVisible">
             <el-form :model="form">
@@ -23,6 +28,13 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import { Button } from 'vant';
+import { Popup } from 'vant';
+
+Vue.use(Popup);
+Vue.use(Button);
+
 export default {
     data() {
             return {
@@ -36,11 +48,14 @@ export default {
                 type: [],
                 resource: '',
                 desc: ''
-            }
+            },
+            show: false
         }
     },
     methods: {
-        
+        showPopup() {
+            this.show = true;
+        },
         test() {
             console.log("hhh");
         }
@@ -51,13 +66,12 @@ export default {
 
 <style>
 
-#rrr {
-    font-size: 0.25rem;
-    padding: 2rem;
+#rr {
     position: fixed;
     bottom: 5%;
-    right: 5%;
+    max-width:5%;
 }
+
 
 #icon {
     font-size:1rem;
