@@ -8,8 +8,6 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 
-// import './assets/css/main.css' /*引入公共样式*/
-// import './assets/css/noscript.css' /*引入公共样式*/
 
 import '@vant/touch-emulator';
 

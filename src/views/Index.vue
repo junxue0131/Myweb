@@ -1,25 +1,13 @@
 <template>
-    <el-container>
+    <div>
         <!-- header -->
         <header id="header" class="alt" style="background: rgba(100, 88, 98, 0);padding: 2em 0em 2em 0em;">
-					<h1 id="logo" style="padding: 0em 2em;"><a href="index.html">Xuejun</a></h1>
+					<h1 id="logo" style="padding: 0em 2em;"><a href="index.html" style="font-size=20px">Xuejun</a></h1>
 					<nav id="nav">
 						<ul>
 							<li class="current"><a href="index.html">首页</a></li>
 							<li class="current"><a href="index.html">文章</a></li>
 							<li class="current"><a href="index.html">个人介绍</a></li>
-							<li class="current test"><a href="#">
-								<van-cell border="false" @click="showPopup" 
-								style="padding: 0 0 0 0;background: inherit;color: #ffffff; text-align: left;"
-								id="test">
-									展示弹出层
-								</van-cell>
-        						<van-popup v-model="show"  position="left" :style="{ height: '100%', width: '30%' }">
-									<Upload></Upload>
-									<Upload></Upload>
-									<Upload></Upload>
-            						<van-cell title="文本" />
-								</van-popup>
 							</a></li>
 						</ul>
 					</nav>
@@ -83,12 +71,11 @@
 			</ul>
 		</footer>
         
-    </el-container>
+    </div>
 </template>
 
 <script>
 import List from '../components/List'
-import Upload from '../components/Upload'
 import Vue from 'vue';
 import { Cell, CellGroup } from 'vant';
 
@@ -98,7 +85,6 @@ export default {
 	name: "index",
 	components: {
 		List,
-		Upload
 	},
     data() {
       return {
@@ -132,7 +118,8 @@ html {
 }
 
 body::-webkit-scrollbar {
-    display: none;
+	display: none;
+	overflow-x:hidden;
 }
 
 </style>
