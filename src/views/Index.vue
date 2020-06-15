@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <!-- header -->
-        <header id="header" class="alt" style="position: fixed;background: rgba(100, 88, 98, 0.2);">
+        <header id="header" class="alt" style="background: rgba(100, 88, 98, 0);">
 					<h1 id="logo"><a href="index.html">Xuejun</a></h1>
 					<nav id="nav">
 						<ul>
@@ -106,15 +106,10 @@ export default {
 </script>
 
 <style scoped>
-.el-dropdown-link {
-    cursor: pointer;
-    color: #ffffff;
-  }
-  .demonstration {
-    display: block;
-    color: #8492a6;
-    margin-bottom: 20px;
-  }
+
+p, ul, ol, dl, table, blockquote {
+    margin: 0 0 2em 0;
+}
 
 </style>
 

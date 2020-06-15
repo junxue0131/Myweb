@@ -10,14 +10,6 @@ import axios from 'axios'
 
 import './assets/css/main.css' /*引入公共样式*/
 import './assets/css/noscript.css' /*引入公共样式*/
-// import "./assets/js/jquery.min.js"
-// import "./assets/js/jquery.dropotron.min.js"
-// import "./assets/js/jquery.scrolly.min.js"
-// import "./assets/js/jquery.scrollex.min.js"
-// import "./assets/js/browser.min.js"
-// import "./assets/js/breakpoints.min.js"
-// import "./assets/js/util.js"
-// import "./assets/js/main_t.js"
 
 import '@vant/touch-emulator';
 
