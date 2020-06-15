@@ -1,8 +1,8 @@
 <template>
     <el-container>
         <!-- header -->
-        <header id="header" class="alt" style="background: rgba(100, 88, 98, 0);">
-					<h1 id="logo"><a href="index.html">Xuejun</a></h1>
+        <header id="header" class="alt" style="background: rgba(100, 88, 98, 0);padding: 2em 0em 2em 0em;">
+					<h1 id="logo" style="padding: 0em 2em;"><a href="index.html">Xuejun</a></h1>
 					<nav id="nav">
 						<ul>
 							<li class="current"><a href="index.html">首页</a></li>
@@ -46,6 +46,15 @@
                         <br />
                         <br />
                         <p>用来把这个banner拉长233</p>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
                         <br />
                         <br />
                         <br />
@@ -105,20 +114,10 @@ export default {
 }
 </script>
 
-<style scoped>
-
-p, ul, ol, dl, table, blockquote {
-    margin: 0 0 2em 0;
-}
-
+<style src="../assets/css/main.css" scoped>
 </style>
 
 <style>
-
-
-html,body{overflow:hidden;overflow-y:auto;}
-.selector::-webkit-scrollbar { display: none }
-
 .van-cell::after {
 	position: fixed;
 }
@@ -127,7 +126,13 @@ html,body{overflow:hidden;overflow-y:auto;}
 	color: #ffffff;
 }
 
+html {
+    overflow: -moz-hidden-unscrollable;
+    height: 100%;
+}
 
-
+body::-webkit-scrollbar {
+    display: none;
+}
 
 </style>

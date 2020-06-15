@@ -1,5 +1,10 @@
 <template>
   <div>
+    <van-button type="info" @click="show = true">信息按钮</van-button>
+    <van-dialog v-model="show" title="标题" show-cancel-button>
+      <img src="https://img.yzcdn.cn/vant/apple-3.jpg" />
+    </van-dialog>
+
     <div id="container">
     <div class="waterfall-height-css" v-loading="isloading">
       <div class="image-box" v-for="img in imgList" :key="img.url">
@@ -22,7 +27,11 @@
 <script>
 import Vue from 'vue';
 import { Pagination } from 'vant';
+import { Dialog } from 'vant';
+import { Button } from 'vant';
 
+Vue.use(Button);
+Vue.use(Dialog);
 Vue.use(Pagination);
 
 export default {
@@ -34,7 +43,8 @@ export default {
       total: 17, // 总图片数
       pageSize: 8, // 每页显示的数量
       isloading: false,
-      currentPage: 1
+      currentPage: 1,
+      show: false
     }
   },
   watch: {
