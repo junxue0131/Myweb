@@ -47,11 +47,11 @@
         <van-field name="uploader" label="图片上传">
           <template #input>
             <el-upload
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="string"
               list-type="picture-card"
               :limit=1
-              :on-preview="handlePictureCardPreview"
-              :on-remove="handleRemove">
+              :http-request="conveyPic"
+              :before-upload="beforeAvatarUpload">
               <i class="el-icon-plus"></i>
             </el-upload>
             <el-dialog :visible.sync="dialogVisible">
@@ -110,11 +110,13 @@ Vue.use(Button);
 Vue.use(Dialog);
 Vue.use(Pagination);
 
+
+
 export default {
   name: 'HeightCss',
   data() {
     return {
-      //分页器组件
+      //分页器
       imgList: [], //img-box所需列表
       srcList: [], //展示img的url列表
       total: 17, // 总图片数
@@ -122,15 +124,13 @@ export default {
       isloading: false,
       currentPage: 1,
       
-      //表单组件
+      //表单
       show: false,
       content: '',
-      fileList: [
-        { url: 'https://img.yzcdn.cn/vant/leaf.jpg' },
-        // Uploader 根据文件后缀来判断是否为图片文件
-        // 如果图片 URL 中不包含类型信息，可以添加 isImage 标记来声明
-        { url: 'https://cloud-image', isImage: true },
-      ]
+      fileList: [],
+      file: '',
+      dialogImageUrl: '',
+      dialogVisible: false
     }
   },
   watch: {
@@ -140,6 +140,7 @@ export default {
     }
   },
   methods: {
+    //加载图片
     loadImage() {
       this.isloading = false;
       let t = (this.currentPage - 1) * this.pageSize;
@@ -157,6 +158,7 @@ export default {
         }
       }
     },
+    //翻页
     exchangeCurrentPage() {
       this.imgList = [];
       this.srcList = [];
@@ -166,27 +168,51 @@ export default {
       });
       
     },
+    //睡眠函数
     sleep () {
         return new Promise((resolve) => setTimeout(resolve, 500));
     },
-    nextPage() {
-      if (this.currentPage < this.total / this.pageSize) {
-        this.currentPage++;
-      }
+    //将上传文件传入本地变量
+    conveyPic(f) {
+      this.file = f.file;
+    },
+    //上传提交动作
+    onSubmit(f) {
+      let formData = new FormData()
+
+      formData.append('file', this.file);
+      formData.append('content', this.content);
+
+      let config = {headers: {'Content-Type': 'multipart/form-data'}};
+
+      this.$axios.post('http://localhost:8081/picture/uploadTest', formData, config).then(res => {
+          if (res.data.code === 0) {
+            this.$message({
+            message: '上传成功！',
+            type: 'success',
+          });
+        }
+      })
+    },
+    //上传后文件检验
+    beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$message.error('上传图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+      },
+    //上传成功后动作
+    handleSuccess(response, file, fileList) {
       
-    },
-    prevPage() {
-      if (this.currentPage > 1) {
-        this.currentPage--;
-      }
-    },
-    cover() {
-      
-    },
-    onSubmit(values) {
-      console.log('submit', values);
     }
   },
+  
   created() {
     this.loadImage()
   }
@@ -227,6 +253,10 @@ export default {
 
 #container {
     min-height: 200px;
+}
+
+.el-message--success {
+  z-index: 3000 !important;
 }
 
 </style>
