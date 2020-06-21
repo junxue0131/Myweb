@@ -144,19 +144,32 @@ export default {
     loadImage() {
       this.isloading = false;
       let t = (this.currentPage - 1) * this.pageSize;
-      for (let i = t; i < t + this.pageSize; i++) {
-        let image = new Image()
-        let url = require(`@/assets/images/${i}.jpeg`)
-        this.srcList.push(url)
-        image.src = url
-        image.onload = () => {
-          this.imgList.push({
-            url: url,
-            width: image.width,
-            height: image.height
-          })
+
+      //通过后端接口获取图片url
+      let formData = new FormData();
+      formData.append('page', this.currentPage);
+      formData.append('counts', this.pageSize);
+
+      this.$axios.post('http://localhost:8081/picture/getPic', formData).then(res => {
+        if (res.data.code === 0) {
+          for (let i = 0; i < this.pageSize; i++) {
+            let image = new Image()
+            // let url = require(`@/assets/images/${i}.jpeg`)
+            let url = 'http://' + res.data.data[i].picUrl + '?x-oss-process=image/resize,p_50'
+            this.srcList.push(url)
+            image.src = url
+            image.onload = () => {
+              this.imgList.push({
+                url: url,
+                width: image.width,
+                height: image.height
+              })
+            }
+          }
         }
-      }
+      })
+
+
     },
     //翻页
     exchangeCurrentPage() {
@@ -185,7 +198,7 @@ export default {
 
       let config = {headers: {'Content-Type': 'multipart/form-data'}};
 
-      this.$axios.post('http://localhost:8081/picture/uploadTest', formData, config).then(res => {
+      this.$axios.post('http://localhost:8081/picture/upload', formData, config).then(res => {
           if (res.data.code === 0) {
             this.$message({
             message: '上传成功！',
@@ -197,15 +210,15 @@ export default {
     //上传后文件检验
     beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
+        const isLt2M = file.size / 1024 / 1024 < 5;
 
         if (!isJPG) {
           this.$message.error('上传图片只能是 JPG 格式!');
         }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
+        if (!isLt5M) {
+          this.$message.error('上传头像图片大小不能超过 5MB!');
         }
-        return isJPG && isLt2M;
+        return isJPG && isLt5M;
       },
     //上传成功后动作
     handleSuccess(response, file, fileList) {
