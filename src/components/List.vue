@@ -2,7 +2,7 @@
   <div>
     <van-row>
 
-      <van-col span="6">
+      <van-col span="6" >
         <!-- 排序选择 -->
         <el-dropdown trigger="click">
           <span class="el-dropdown-link">
@@ -71,17 +71,27 @@
     <div id="container" style="padding: 1.5rem 0rem 1.5rem 0rem">
     <div class="waterfall-height-css" v-loading="isloading">
       <div class="image-box" v-for="img in imgList" :key="img.url">
-          <el-image id="img_s" :src="img.url" :preview-src-list="srcList" :fit="cover"/>
+        <van-image
+          width="22rem"
+          height="22rem"
+          fit="cover"
+          :src="img.url"
+          lazy-load>
+            <template v-slot:loading>
+              <van-loading type="spinner" size="20" />
+            </template>
+        </van-image>
+          <!-- <el-image id="img_s" :src="img.url" :preview-src-list="srcList" :fit="cover"/>
           <center>
           <div>图片语</div>
           <div>6赞  3评论</div>
-          </center>
+          </center> -->
       </div>
     </div>
     </div>
 
     <!-- 分页器组件 -->
-    <van-pagination v-model="currentPage" :page-count="Math.ceil(total/pageSize)" mode="simple" />
+    <van-pagination v-model="currentPage" :page-count="Math.ceil(total/pageSize)" mode="simple"/>
           
     
   </div>
@@ -98,8 +108,13 @@ import { Field } from 'vant';
 import { Col, Row } from 'vant';
 import { Uploader } from 'vant';
 import { Divider } from 'vant';
+import { Image as VanImage } from 'vant';
+import { Lazyload } from 'vant';
+import { Loading } from 'vant';
 
-
+Vue.use(Loading);
+Vue.use(Lazyload);
+Vue.use(VanImage);
 Vue.use(Divider);
 Vue.use(Uploader);
 Vue.use(Col);
@@ -118,7 +133,8 @@ export default {
     return {
       //分页器
       imgList: [], //img-box所需列表
-      srcList: [], //展示img的url列表
+      srcList: [], //展示img的url列表(缩略图)
+      srcListDetail: ['', '', '', '', '', ''], //展示img的url列表(原图)
       total: 17, // 总图片数
       pageSize: 8, // 每页显示的数量
       isloading: false,
@@ -153,11 +169,12 @@ export default {
       this.$axios.post('http://localhost:8081/picture/getPic', formData).then(res => {
         if (res.data.code === 0) {
           for (let i = 0; i < this.pageSize; i++) {
-            let image = new Image()
-            // let url = require(`@/assets/images/${i}.jpeg`)
-            let url = 'http://' + res.data.data[i].picUrl + '?x-oss-process=image/resize,p_50'
-            this.srcList.push(url)
-            image.src = url
+            let image = new Image();
+            let url = 'http://' + res.data.data[i].picUrl + '?x-oss-process=image/resize,p_50';
+            let urlDetail = 'http://' + res.data.data[i].picUrl;
+            this.srcList.push(urlDetail);
+            // this.srcListDetail.push(urlDetail);
+            image.src = url;
             image.onload = () => {
               this.imgList.push({
                 url: url,
@@ -168,18 +185,18 @@ export default {
           }
         }
       })
-
-
     },
     //翻页
     exchangeCurrentPage() {
       this.imgList = [];
       this.srcList = [];
+      this.srcListDetail = [];
       this.isloading = true;
-      this.sleep().then(() => {
-        this.loadImage();
-      });
-      
+      this.loadImage();
+      // 虚假加载
+      // this.sleep().then(() => {
+      //   this.loadImage();
+      // });
     },
     //睡眠函数
     sleep () {
@@ -219,13 +236,8 @@ export default {
           this.$message.error('上传头像图片大小不能超过 5MB!');
         }
         return isJPG && isLt5M;
-      },
-    //上传成功后动作
-    handleSuccess(response, file, fileList) {
-      
-    }
+      }
   },
-  
   created() {
     this.loadImage()
   }
@@ -237,24 +249,31 @@ export default {
 <style lang="scss" scope>
 .waterfall-height-css {
   display: flex;
-  // background-color: ;
+  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
   .image-box {
     margin: 5px;
-    flex-grow: 1;
+    // flex-grow: 1;
   }
-  #img_s {
-    width: auto;
-    display: block;
-    min-width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-  &:after {
-    content: '';
-    display: block;
-    flex-grow: 99999;
-  }
+  // #img_s {
+  //   width: auto;
+  //   display: block;
+  //   min-width: 100%;
+  //   height: 200px;
+  //   object-fit: cover;
+  // }
+  // &:after {
+  //   content: '';
+  //   display: block;
+  //   flex-grow: 99999;
+  // }
+}
+
+#pic {
+  background-color: gainsboro;
+  width: 22rem;
+  height: 22rem;
 }
 </style>
 
