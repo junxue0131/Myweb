@@ -38,7 +38,7 @@
                         <br />
                         <br />
                         <br />
-						<br>by <a href="http://html5up.net">ZiqiangStudio</a>.</p>
+						<br>by <a href="http://ziqiang.net.cn">ZiqiangStudio</a>.</p>
                         <br />
                         <br />
                         <br />
