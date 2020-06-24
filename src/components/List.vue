@@ -3,7 +3,7 @@
     <van-row>
 
       <van-col span="6" >
-        <!-- 排序选择 -->
+        <!-- 排序选择按钮 -->
         <el-dropdown trigger="click">
           <span class="el-dropdown-link">
             <el-button>
@@ -11,10 +11,10 @@
             </el-button>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-plus">按赞数由高到低</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-plus">按赞数由低到高</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-circle-plus">按发布时间由晚到早</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-circle-plus">按发布时间由早到晚</el-dropdown-item>
+            <div @click="reorder('false')"><el-dropdown-item icon="el-icon-circle-plus">最新发布</el-dropdown-item></div>
+            <div @click="reorder('true')"><el-dropdown-item icon="el-icon-circle-plus">最早发布</el-dropdown-item></div>
+            <el-dropdown-item icon="el-icon-circle-plus">最多浏览</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-plus">最多赞数</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </van-col>
@@ -70,22 +70,21 @@
     <!-- 图片展示容器 -->
     <div id="container" style="padding: 1.5rem 0rem 1.5rem 0rem">
     <div class="waterfall-height-css" v-loading="isloading">
-      <div class="image-box" v-for="img in imgList" :key="img.url">
+      <div class="image-box" v-for="(img, index) in imgList" :key="img.url">
         <van-image
           width="22rem"
           height="22rem"
           fit="cover"
-          :src="img.url"
+          :src="srcList[index]"
           lazy-load>
             <template v-slot:loading>
               <van-loading type="spinner" size="20" />
             </template>
         </van-image>
-          <!-- <el-image id="img_s" :src="img.url" :preview-src-list="srcList" :fit="cover"/>
-          <center>
-          <div>图片语</div>
-          <div>6赞  3评论</div>
-          </center> -->
+        <center>
+          <div>{{ contentList[index] }}</div>
+          <div>6赞  3浏览  3评论</div>
+        </center>
       </div>
     </div>
     </div>
@@ -131,10 +130,16 @@ export default {
   name: 'HeightCss',
   data() {
     return {
-      //分页器
+      //图片列表
       imgList: [], //img-box所需列表
       srcList: [], //展示img的url列表(缩略图)
-      srcListDetail: ['', '', '', '', '', ''], //展示img的url列表(原图)
+      srcListDetail: [], //展示img的url列表(原图)
+      contentList: [], //图片文字信息列表
+      order: false, //图片展示顺序，默认按最新地时间进行展示
+      likeList: [], //赞数列表
+      viewList: [], //浏览量列表
+
+      //分页器
       total: 17, // 总图片数
       pageSize: 8, // 每页显示的数量
       isloading: false,
@@ -165,6 +170,7 @@ export default {
       let formData = new FormData();
       formData.append('page', this.currentPage);
       formData.append('counts', this.pageSize);
+      formData.append('order', this.order);
 
       this.$axios.post('http://localhost:8081/picture/getPic', formData).then(res => {
         if (res.data.code === 0) {
@@ -172,14 +178,15 @@ export default {
             let image = new Image();
             let url = 'http://' + res.data.data[i].picUrl + '?x-oss-process=image/resize,p_50';
             let urlDetail = 'http://' + res.data.data[i].picUrl;
-            this.srcList.push(urlDetail);
-            // this.srcListDetail.push(urlDetail);
+            this.srcList.push(url);
+            this.srcListDetail.push(urlDetail);
+            this.contentList.push(res.data.data[i].picInfo);
             image.src = url;
             image.onload = () => {
               this.imgList.push({
                 url: url,
                 width: image.width,
-                height: image.height
+                height: image.height,
               })
             }
           }
@@ -191,12 +198,19 @@ export default {
       this.imgList = [];
       this.srcList = [];
       this.srcListDetail = [];
+      this.contentList = [];
       this.isloading = true;
       this.loadImage();
       // 虚假加载
       // this.sleep().then(() => {
       //   this.loadImage();
       // });
+    },
+    //排序
+    reorder: function(order) {
+      console.log("hhh");
+      this.order = order;
+      this.exchangeCurrentPage();
     },
     //睡眠函数
     sleep () {
@@ -227,7 +241,7 @@ export default {
     //上传后文件检验
     beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 5;
+        const isLt5M = file.size / 1024 / 1024 < 5;
 
         if (!isJPG) {
           this.$message.error('上传图片只能是 JPG 格式!');

@@ -2,12 +2,13 @@
     <div>
         <!-- header -->
         <header id="header" class="alt" style="background: rgba(100, 88, 98, 0);padding: 2em 0em 2em 0em;">
-					<h1 id="logo" style="padding: 0em 2em;"><a href="index.html" style="font-size=20px">Xuejun</a></h1>
+					<h1 id="logo" style="padding: 0em 2em;"><a href="index.html" style="font-size=20px">ZQHOME</a></h1>
 					<nav id="nav">
 						<ul>
 							<li class="current"><a href="index.html">首页</a></li>
-							<li class="current"><a href="index.html">文章</a></li>
-							<li class="current"><a href="index.html">个人介绍</a></li>
+							<li class="current"><a href="index.html">图片墙</a></li>
+							<li class="current"><a href="index.html">资源聚合</a></li>
+							<li class="current"><a href="index.html">关于我们</a></li>
 							</a></li>
 						</ul>
 					</nav>
@@ -23,26 +24,21 @@
 					-->
 					<div class="inner">
 						<header>
-							<h2>Xue Jun</h2>
+							<h2>ZQ HOME</h2>
 						</header>
-						<p>欢迎来到 <strong>我的网站</strong>, 一个无聊
 						<br />
-						青年所搭的网站
+						<h3>你好，武大人</h3>
+						<h3>欢迎来到 <strong>自强主站</strong></h3>
+						<h3>本站希望为每个同学创造</h3>
+						<h3>便利与感动</h3>
+                        <br />
+                        <br />
+                        <br />
 						<br />
-						by <a href="http://html5up.net">橙</a>.</p>
                         <br />
                         <br />
                         <br />
-                        <p>用来把这个banner拉长233</p>
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
+						<br>by <a href="http://html5up.net">ZiqiangStudio</a>.</p>
                         <br />
                         <br />
                         <br />
@@ -122,4 +118,7 @@ body::-webkit-scrollbar {
 	overflow-x:hidden;
 }
 
+#banner {   
+    
+} 
 </style>
