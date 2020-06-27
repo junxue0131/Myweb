@@ -3,10 +3,12 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import VueRouter from 'vue-router'
-import 'element-ui/lib/theme-chalk/index.css'
-import App from './App'
-import router from './router'
 import axios from 'axios'
+import 'element-ui/lib/theme-chalk/index.css'
+
+import routers from './router/routes'
+import App from './App'
+
 
 
 import '@vant/touch-emulator';
@@ -19,6 +21,11 @@ Vue.config.productionTip = false
 Vue.use(VueRouter);
 Vue.use(ElementUI);
 Vue.prototype.$axios = axios;
+
+const router = new VueRouter({
+  mode: 'history',
+  routes: routers
+})
 
 
 /* eslint-disable no-new */

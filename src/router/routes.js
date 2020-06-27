@@ -9,7 +9,7 @@ Vue.use(VueRouter);
 
 const routers = [
     {
-      path: '/index',
+      path: '/',
       component: Index,
 //   　　 children: [ 
 //   　　　{ 
@@ -34,14 +34,10 @@ const routers = [
     //     } 
     //   ]
     },
-    {
-        path: '/',
-        redirect: '/index'
-    }
-  ]
-
-  var router =  new VueRouter({
-    routers
-  })
+    // {
+    //     path: '/',
+    //     redirect: '/index'
+    // }
+]
   
-  export default router
+export default routers
