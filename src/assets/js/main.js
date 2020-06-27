@@ -94,3 +94,7 @@
 		}
 
 })(jQuery);
+
+export {  
+    main
+}

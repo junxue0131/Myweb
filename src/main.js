@@ -8,6 +8,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import routers from './router/routes'
 import App from './App'
+import Vuex from 'vuex'
+
+
 
 
 
@@ -20,7 +23,16 @@ Vue.config.productionTip = false
 //使用组件
 Vue.use(VueRouter);
 Vue.use(ElementUI);
+Vue.use(Vuex)
 Vue.prototype.$axios = axios;
+
+
+const store = new Vuex.Store({
+  state: {
+    activeName: ''
+  }
+})
+
 
 const router = new VueRouter({
   mode: 'history',
@@ -32,6 +44,7 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
   router,
+  store,
   // 启用 ElementUI
   render: h => h(App)
 })

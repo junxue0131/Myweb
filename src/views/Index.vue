@@ -2,14 +2,13 @@
     <div>
         <!-- header -->
         <header id="header" class="alt" style="background: rgba(100, 88, 98, 0);padding: 2em 0em 2em 0em;">
-					<h1 id="logo" style="padding: 0em 2em;"><a href="index.html" style="font-size=20px">ZQHOME</a></h1>
+					<h1 id="logo" style="padding: 0em 2em;"><a href="/" style="font-size=20px">ZQHOME</a></h1>
 					<nav id="nav">
 						<ul>
-							<li class="current"><a href="index.html">首页</a></li>
-							<li class="current"><a href="index.html">图片墙</a></li>
+							<li class="current"><a href="/test">图片墙</a></li>
+							<li class="current"><a href="/test">自强新闻</a></li>
 							<li class="current"><a href="index.html">资源聚合</a></li>
 							<li class="current"><a href="index.html">关于我们</a></li>
-							</a></li>
 						</ul>
 					</nav>
 		</header>
@@ -96,8 +95,7 @@ export default {
 }
 </script>
 
-<style src="../assets/css/main.css" scoped>
-</style>
+<style src="../assets/css/main.css" scoped></style>
 
 <style>
 .van-cell::after {
@@ -117,8 +115,4 @@ body::-webkit-scrollbar {
 	display: none;
 	overflow-x:hidden;
 }
-
-#banner {   
-    
-} 
 </style>

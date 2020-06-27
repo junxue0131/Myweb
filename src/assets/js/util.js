@@ -585,3 +585,7 @@
 	};
 
 })(jQuery);
+
+export {  
+    util
+}
