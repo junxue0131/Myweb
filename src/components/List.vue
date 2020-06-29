@@ -82,8 +82,8 @@
             </template>
         </van-image>
         <center>
-          <div>{{ contentList[index] }}</div>
-          <div>6赞  3浏览  3评论</div>
+          <div>{{ List[index].picInfo }}</div>
+          <div><i class="el-icon-star-off" @click="like(index)"></i>{{ List[index].like }}赞  {{ viewList[index] }}浏览  3评论</div>
         </center>
       </div>
     </div>
@@ -131,13 +131,10 @@ export default {
   data() {
     return {
       //图片列表
+      List: [], //图片对象信息列表
       imgList: [], //img-box所需列表
       srcList: [], //展示img的url列表(缩略图)
-      srcListDetail: [], //展示img的url列表(原图)
-      contentList: [], //图片文字信息列表
       order: false, //图片展示顺序，默认按最新地时间进行展示
-      likeList: [], //赞数列表
-      viewList: [], //浏览量列表
 
       //分页器
       total: 17, // 总图片数
@@ -172,15 +169,17 @@ export default {
       formData.append('counts', this.pageSize);
       formData.append('order', this.order);
 
+      //请求Mysql后端接口
       this.$axios.post('http://localhost:8081/picture/getPic', formData).then(res => {
         if (res.data.code === 0) {
           for (let i = 0; i < this.pageSize; i++) {
             let image = new Image();
             let url = 'http://' + res.data.data[i].picUrl + '?x-oss-process=image/resize,p_50';
             let urlDetail = 'http://' + res.data.data[i].picUrl;
+
+            //装入数据
+            this.List.push(res.data.data[i]);
             this.srcList.push(url);
-            this.srcListDetail.push(urlDetail);
-            this.contentList.push(res.data.data[i].picInfo);
             image.src = url;
             image.onload = () => {
               this.imgList.push({
@@ -192,13 +191,16 @@ export default {
           }
         }
       })
+
+      //请求Redis后端接口
+
+
     },
     //翻页
     exchangeCurrentPage() {
+      this.List = [];
       this.imgList = [];
       this.srcList = [];
-      this.srcListDetail = [];
-      this.contentList = [];
       this.isloading = true;
       this.loadImage();
       // 虚假加载
@@ -250,7 +252,24 @@ export default {
           this.$message.error('上传头像图片大小不能超过 5MB!');
         }
         return isJPG && isLt5M;
-      }
+    },
+    //点赞
+    like(index) {
+      this.List[index].like += 1;
+      Vue.set(this.List[index], "like", this.List[index].like);
+      this.$axios.get('http://localhost:8081/picture/likePic/'+this.List[index].id).then(res => {
+        if (res.data.code === 0) {
+          this.$message({
+              message: '点赞成功！',
+              type: 'success',
+            });
+        }
+      })
+    },
+    //浏览
+    view() {
+
+    },
   },
   created() {
     this.loadImage()
