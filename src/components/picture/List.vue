@@ -1,6 +1,8 @@
 <template>
   <div>
 
+    <div style="height:3rem"></div>
+
     <center><h2><strong>Some pictures</strong></h2></center>
 
     <van-row>
@@ -331,6 +333,10 @@ export default {
 
 .el-message {
   z-index: 3000 !important;
+}
+
+.el-button {
+  margin: 0 5px;
 }
 
 </style>

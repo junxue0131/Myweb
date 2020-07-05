@@ -10,7 +10,7 @@
 	</ul>
 
 	<ul class="copyright">
-		<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		<li>&copy; 小强车间</li><li>Designed by: <a href="http://html5up.net">自强Studio</a></li>
 	</ul>
 
     </footer>

@@ -2,8 +2,10 @@
     <div>
         <!-- Header -->
         <div style="height:50.4px">
-            <Header></Header>
+            <Header style="background:rgba(100, 88, 98, 0.5);"></Header>
         </div>
+
+        <SideBar></SideBar>
                 
         <el-main style="padding: 0 0 0 0;">
             <List></List>
@@ -16,14 +18,16 @@
 </template>
 
 <script>
-import Footer from '../components/Footer'
-import Header from '../components/Header'
-import List from '../components/picture/List'
+import Footer from '../../components/Footer'
+import Header from '../../components/Header'
+import SideBar from '../../components/Sidebar'
+import List from '../../components/picture/List'
 export default {
     components: {
         Header,
         Footer,
-        List
+        List,
+        SideBar
     },
     data() {
         return {
@@ -51,5 +55,7 @@ body::-webkit-scrollbar {
 	display: none;
 	overflow-x:hidden;
 }
+
+
 
 </style>

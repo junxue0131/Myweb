@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Index from '../views/Index.vue'
-import PicturesIndex from '../views/PicturesIndex.vue'
+import PicturesIndex from '../views/picture/PicturesIndex.vue'
+import PicturesInfo from '../views/picture/PicturesInfo.vue'
 
 Vue.use(VueRouter);
 
@@ -21,23 +22,11 @@ const routers = [
     {
       path: '/picIndex',
       component: PicturesIndex,
-    //   children: [
-    //     {
-    //       path: '/',
-    //       name: 'login',
-    //       component: Login
-    //     },
-    //     {
-    //       path: 'first',
-    //       name: 'first',
-    //       component: First
-    //     } 
-    //   ]
     },
-    // {
-    //     path: '/',
-    //     redirect: '/index'
-    // }
+    {
+        path: '/pictInfo',
+        component: PicturesInfo,
+    }
 ]
   
 export default routers

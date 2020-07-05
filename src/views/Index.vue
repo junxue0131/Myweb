@@ -1,17 +1,11 @@
 <template>
     <div>
         <!-- header -->
-        <header id="header" class="alt" style="background: rgba(100, 88, 98, 0);padding: 2em 0em 2em 0em;">
-					<h1 id="logo" style="padding: 0em 2em;"><a href="/" style="font-size=20px">ZQHOME</a></h1>
-					<nav id="nav">
-						<ul>
-							<li class="current"><a href="/picIndex">图片墙</a></li>
-							<li class="current"><a href="/test">自强新闻</a></li>
-							<li class="current"><a href="index.html">资源聚合</a></li>
-							<li class="current"><a href="index.html">关于我们</a></li>
-						</ul>
-					</nav>
-		</header>
+        <Header></Header>
+
+		<!-- //侧边栏 -->
+		<SideBar></SideBar>
+		
 
         <!-- Banner -->
 				<section id="banner">
@@ -43,34 +37,21 @@
                         <br />
 					</div>
 				</section>
-        <el-header>
-            
-        </el-header>
         
-	
-		
   		<List></List>
 		
         
         <!-- Footer -->
-		<footer id="footer">
-			<ul class="icons">
-				<li><a href="#" class="icon brands circle fa-twitter"><span class="label">Twitter</span></a></li>
-				<li><a href="#" class="icon brands circle fa-facebook-f"><span class="label">Facebook</span></a></li>
-				<li><a href="#" class="icon brands circle fa-google-plus-g"><span class="label">Google+</span></a></li>
-				<li><a href="#" class="icon brands circle fa-github"><span class="label">Github</span></a></li>
-				<li><a href="#" class="icon brands circle fa-dribbble"><span class="label">Dribbble</span></a></li>
-			</ul>
-			<ul class="copyright">
-				<li>&copy; XueJun</li><li>Designed: <a href="http://html5up.net">HTML5 UP</a></li>
-			</ul>
-		</footer>
+		<Footer></Footer>
         
     </div>
 </template>
 
 <script>
 import List from '../components/picture/List'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import SideBar from '../components/Sidebar'
 import Vue from 'vue';
 import { Cell, CellGroup } from 'vant';
 
@@ -80,11 +61,14 @@ export default {
 	name: "index",
 	components: {
 		List,
+		Header,
+		Footer,
+		SideBar,
 	},
     data() {
       return {
 		url: 'https://s1.ax1x.com/2020/06/06/tyibYn.png',
-		show: false
+		show: false,
       }
 	},
 	methods: {
@@ -115,4 +99,6 @@ body::-webkit-scrollbar {
 	display: none;
 	overflow-x:hidden;
 }
+
+
 </style>
