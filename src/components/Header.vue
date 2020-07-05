@@ -72,9 +72,9 @@ export default {
   background $headerBg
   height 50.4px
   width 100%
-  position fixed
+  position absolute
   top 0
-  padding 0 10%
+  padding 0 0
   .container
     width 100%
     height 100%
@@ -109,6 +109,8 @@ export default {
         border 1px $headerTextColor solid
         border-radius 5px
   .dropdown
+    position absolute
+    z-index 1000
     width 100%
     background $headerBg
     li
@@ -136,7 +138,7 @@ export default {
 }
 @media screen and (min-width: 768px) {
   #bars {
-    display none
+    display none !important
   }
   .dropdown {
     display none

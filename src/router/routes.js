@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import FrameWork from '../components/FrameWork.vue'
 import Index from '../views/Index.vue'
+import PicturesIndex from '../views/PicturesIndex.vue'
 
 Vue.use(VueRouter);
 
@@ -19,8 +19,8 @@ const routers = [
 //   　　]
     },
     {
-      path: '/test',
-      component: FrameWork,
+      path: '/picIndex',
+      component: PicturesIndex,
     //   children: [
     //     {
     //       path: '/',

@@ -1,29 +1,29 @@
 <template>
-<div>
-    <!-- Header -->
-    <div style="height:50.4px">
-        <Header></Header>
-    </div>
-            
-    <el-main>
-        <div style="height:1000px">
-            这是内容
-		</div>
-    </el-main>
-    <!-- Footer -->
+    <div>
+        <!-- Header -->
+        <div style="height:50.4px">
+            <Header></Header>
+        </div>
+                
+        <el-main style="padding: 0 0 0 0;">
+            <List></List>
+        </el-main>
+
+        <!-- Footer -->
         <Footer></Footer>
-			
-</div>
+                
+    </div>
 </template>
 
 <script>
 import Footer from '../components/Footer'
 import Header from '../components/Header'
-
+import List from '../components/List'
 export default {
     components: {
         Header,
-		Footer,
+        Footer,
+        List
     },
     data() {
         return {
@@ -38,8 +38,6 @@ export default {
     }
 }
 </script>
-
-
 
 <style>
 

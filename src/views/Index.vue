@@ -5,7 +5,7 @@
 					<h1 id="logo" style="padding: 0em 2em;"><a href="/" style="font-size=20px">ZQHOME</a></h1>
 					<nav id="nav">
 						<ul>
-							<li class="current"><a href="/test">图片墙</a></li>
+							<li class="current"><a href="/picIndex">图片墙</a></li>
 							<li class="current"><a href="/test">自强新闻</a></li>
 							<li class="current"><a href="index.html">资源聚合</a></li>
 							<li class="current"><a href="index.html">关于我们</a></li>
@@ -48,7 +48,7 @@
         </el-header>
         
 	
-		<center><h2><strong>Some pictures</strong></h2></center>
+		
   		<List></List>
 		
         

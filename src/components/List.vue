@@ -1,5 +1,8 @@
 <template>
   <div>
+
+    <center><h2><strong>Some pictures</strong></h2></center>
+
     <van-row>
 
       <van-col span="6" >
@@ -83,7 +86,7 @@
         </van-image>
         <center>
           <div>{{ List[index].picInfo }}</div>
-          <div><i class="el-icon-star-off" @click="like(index)"></i>{{ List[index].like }}赞  {{ viewList[index] }}浏览  3评论</div>
+          <div><i class="el-icon-star-off" @click="like(index)"></i>{{ List[index].like }}赞  {{ List[index].view }}浏览  3评论</div>
         </center>
       </div>
     </div>
@@ -169,7 +172,7 @@ export default {
       formData.append('counts', this.pageSize);
       formData.append('order', this.order);
 
-      //请求Mysql后端接口
+      //请求后端接口
       this.$axios.post('http://localhost:8081/picture/getPic', formData).then(res => {
         if (res.data.code === 0) {
           for (let i = 0; i < this.pageSize; i++) {
@@ -191,10 +194,6 @@ export default {
           }
         }
       })
-
-      //请求Redis后端接口
-
-
     },
     //翻页
     exchangeCurrentPage() {
@@ -273,6 +272,11 @@ export default {
   },
   created() {
     this.loadImage()
+    this.$axios.get('http://localhost:8081/picture/total/').then(res => {
+      this.total = res.data.data;
+    })
+    
+    
   }
 }
 </script>
