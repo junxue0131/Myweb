@@ -223,6 +223,7 @@ export default {
     },
     //上传提交动作
     onSubmit(f) {
+      this.$message('上传中...');
       let formData = new FormData()
 
       formData.append('file', this.file);
@@ -325,6 +326,10 @@ export default {
 }
 
 .el-message--success {
+  z-index: 3000 !important;
+}
+
+.el-message {
   z-index: 3000 !important;
 }
 

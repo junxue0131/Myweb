@@ -37,7 +37,7 @@
                         <br />
                         <br />
                         <br />
-						<br>by <a href="http://ziqiang.net.cn">ZiqiangStudio</a>.</p>
+						<br>by <a href="http://ziqiang.net.cn">ZiqiangStudio</a>
                         <br />
                         <br />
                         <br />
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import List from '../components/List'
+import List from '../components/picture/List'
 import Vue from 'vue';
 import { Cell, CellGroup } from 'vant';
 
