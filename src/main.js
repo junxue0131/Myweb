@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import routers from './router/routes'
 import App from './App'
 import Vuex from 'vuex'
+import store from './store'
 
 
 
@@ -25,13 +26,6 @@ Vue.use(VueRouter);
 Vue.use(ElementUI);
 Vue.use(Vuex)
 Vue.prototype.$axios = axios;
-
-
-const store = new Vuex.Store({
-  state: {
-    activeName: ''
-  }
-})
 
 
 const router = new VueRouter({

@@ -75,20 +75,22 @@
     <!-- 图片展示容器 -->
     <div id="container" style="padding: 1.5rem 0rem 1.5rem 0rem">
     <div class="waterfall-height-css" v-loading="isloading">
-      <div class="image-box" v-for="(img, index) in imgList" :key="img.url">
+      <div class="image-box" v-for="(img, index) in imgList" :key="img.id">
         <van-image
+          style="cursor: pointer;"
           width="22rem"
           height="22rem"
           fit="cover"
           :src="srcList[index]"
-          lazy-load>
+          lazy-load
+          @click="getPicInfo(List[index].id)">
             <template v-slot:loading>
               <van-loading type="spinner" size="20" />
             </template>
         </van-image>
         <center>
           <div>{{ List[index].picInfo }}</div>
-          <div><i class="el-icon-star-off" @click="like(index)"></i>{{ List[index].like }}赞  {{ List[index].view }}浏览  3评论</div>
+          <div><i class="el-icon-star-off" @click="like(index)"></i>{{ List[index].like }}赞  {{ List[index].view }}浏览  null评论</div>
         </center>
       </div>
     </div>
@@ -211,7 +213,6 @@ export default {
     },
     //排序
     reorder: function(order) {
-      console.log("hhh");
       this.order = order;
       this.exchangeCurrentPage();
     },
@@ -268,10 +269,12 @@ export default {
         }
       })
     },
-    //浏览
-    view() {
-
-    },
+    //进入图片详情页，浏览量增加
+    getPicInfo(id) {
+      console.log(id);
+      this.$axios.get('http://localhost:8081/picture/viewPic/'+id).then(res => {})
+      this.$router.push({path: '/picInfo/'+id})
+    }
   },
   created() {
     this.loadImage()

@@ -9,7 +9,7 @@
   		:direction="direction"
 		:show-close="false"
 		:withHeader="false"
-        :size="30">
+        :size="'30'">
 		<el-menu style="padding: 1rem 0 0 0;">
             <a href="/"><el-menu-item index="1" id="menu_item">主页</el-menu-item></a>
 			<a href="/picIndex"><el-menu-item index="1" id="menu_item">图片墙</el-menu-item></a>

@@ -37,8 +37,13 @@
                         <br />
 					</div>
 				</section>
+
         
-  		<List></List>
+  		<Picture></Picture>
+
+		<Resource></Resource>
+
+		<Article></Article>
 		
         
         <!-- Footer -->
@@ -48,7 +53,9 @@
 </template>
 
 <script>
-import List from '../components/picture/List'
+import Picture from '../components/index/Picture'
+import Resource from '../components/index/Resource'
+import Article from '../components/index/Article'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import SideBar from '../components/Sidebar'
@@ -60,7 +67,9 @@ Vue.use(Cell);
 export default {
 	name: "index",
 	components: {
-		List,
+		Picture,
+		Resource,
+		Article,
 		Header,
 		Footer,
 		SideBar,

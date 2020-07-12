@@ -5,28 +5,30 @@
     </div>
     <SideBar></SideBar>
 
-    <div style="height:20px"></div>
+    
+    <div style="height:40px"></div>
+    <el-button icon="el-icon-back" circle style="margin: 0 2rem" @click="back()"></el-button>
+    
     
     <div style="padding: 0 2rem 0 2rem">
         <div style="display:inline-block">
-            <h2>Pic NO.1</h2><p>by xxx</p>
+            <h2>Pic NO.{{ id }}</h2><p>by {{ info.ownerId }}</p>
         </div>
-        <el-tag style="float:right" id="pic_tag">标签一</el-tag>
-        <el-tag style="float:right" id="pic_tag">标签二</el-tag>
+        <el-tag style="float:right" id="pic_tag">{{info.picKind}}</el-tag>
         <center>
         <el-image
-        style="height:auto;width:auto;
-        padding: 0 2rem 0 2rem;"
+        style="padding: 0 2rem 0 2rem;height:40rem"
         :src="url"
-        :fit="cover">
+        fit="contain"
+        >
         </el-image>
         </center>
         <div>
-        <p style="display:inline-block;">上传于 2020-7-6 1:57</p><p style="display:inline-block;float:right">0赞 0浏览 0评论</p>
+        <p style="display:inline-block;">上传于 {{info.createTime}}</p><p style="display:inline-block;float:right">{{info.like}}赞 {{info.view}}浏览 null评论</p>
         </div>
         <div>
             <div style="height:20px"></div>
-            ——<p>世界上只有一种英雄主义</p>
+            ——<p>{{info.picInfo}}</p>
             <div style="height:20px"></div>
         </div>
 
@@ -62,9 +64,30 @@ export default {
     },
     data() {
         return {
-            url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+            id: this.$route.params.id,
+            info: {},
+            url: '',
             List: ['666', '666', '666', '666', '666', '666', '666', '666'],
         }
+    },
+    methods: {
+        getInfo() {
+            this.$axios.get(this.$store.state.url+'picture/getPic/'+this.id).then(res => {
+                // console.log(res.data.data);
+                this.info = res.data.data;
+                this.url = 'http://'+this.info.picUrl;
+            })
+        },
+        back() {
+            this.$router.push({path: '/picIndex'});
+        }
+    },
+    created: function() {
+        this.getInfo();
+        this.$router.beforeEach((to, from, next) => {
+            window.scrollTo(0, 0);
+            next()
+        });
     }
 }
 </script>

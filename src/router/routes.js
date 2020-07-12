@@ -24,7 +24,7 @@ const routers = [
       component: PicturesIndex,
     },
     {
-        path: '/pictInfo',
+        path: '/picInfo/:id',
         component: PicturesInfo,
     }
 ]
