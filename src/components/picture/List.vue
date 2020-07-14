@@ -39,7 +39,7 @@
     <van-dialog v-model="show" title="上传图片" :showCancelButton=true :showConfirmButton=false>
       <van-form @submit="onSubmit">
         <van-divider>自强Studio技术中心</van-divider>
-        <van-field name="uploader" label="图片上传">
+        <van-field name="uploader" label="说点什么">
           <template #input>
             <el-input
               type="textarea"
@@ -90,7 +90,7 @@
         </van-image>
         <center>
           <div>{{ List[index].picInfo }}</div>
-          <div><i class="el-icon-star-off" @click="like(index)"></i>{{ List[index].like }}赞  {{ List[index].view }}浏览  null评论</div>
+          <div><i class="el-icon-star-off" @click="like(index)"></i>{{ List[index].like }}赞  {{ List[index].view }}浏览</div>
         </center>
       </div>
     </div>
@@ -234,13 +234,16 @@ export default {
 
       let config = {headers: {'Content-Type': 'multipart/form-data'}};
 
-      this.$axios.post('http://localhost:8081/picture/upload', formData, config).then(res => {
+      this.$axios.post(this.$store.state.url+'picture/upload', formData, config).then(res => {
           if (res.data.code === 0) {
             this.$message({
-            message: '上传成功！',
-            type: 'success',
+              message: '上传成功！',
+              type: 'success',
           });
+        } else {
+          this.$message.error('上传失败!');
         }
+        this.show = false;
       })
     },
     //上传后文件检验
@@ -260,25 +263,25 @@ export default {
     like(index) {
       this.List[index].like += 1;
       Vue.set(this.List[index], "like", this.List[index].like);
-      this.$axios.get('http://localhost:8081/picture/likePic/'+this.List[index].id).then(res => {
+      this.$axios.get(this.$store.state.url+'picture/likePic/'+this.List[index].id).then(res => {
         if (res.data.code === 0) {
-          this.$message({
-              message: '点赞成功！',
-              type: 'success',
-            });
+          // this.$message({
+          //     message: '点赞成功！',
+          //     type: 'success',
+          //   });
         }
       })
     },
     //进入图片详情页，浏览量增加
     getPicInfo(id) {
       console.log(id);
-      this.$axios.get('http://localhost:8081/picture/viewPic/'+id).then(res => {})
+      this.$axios.get(this.$store.state.url+'picture/viewPic/'+id).then(res => {})
       this.$router.push({path: '/picInfo/'+id})
     }
   },
   created() {
     this.loadImage()
-    this.$axios.get('http://localhost:8081/picture/total/').then(res => {
+    this.$axios.get(this.$store.state.url+'picture/total/').then(res => {
       this.total = res.data.data;
     })
     
@@ -331,6 +334,10 @@ export default {
 }
 
 .el-message--success {
+  z-index: 3000 !important;
+}
+
+.el-message--error {
   z-index: 3000 !important;
 }
 
