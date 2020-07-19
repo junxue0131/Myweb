@@ -8,54 +8,16 @@
 
     <center>
     <div>
-        <el-tabs :stretch="true">
-            <el-tab-pane label="首页" name="first"></el-tab-pane>
-            <el-tab-pane label="新闻" name="second"></el-tab-pane>
-            <el-tab-pane label="百科" name="third"></el-tab-pane>
-            <el-tab-pane label="活动" name="fourth"></el-tab-pane>
+        <el-tabs :stretch="true" v-model="activeName" @tab-click="handleTabClick">
+            <el-tab-pane label="首页" name=""></el-tab-pane>
+            <el-tab-pane label="新闻" name="news" @click="console.log('hhh')"></el-tab-pane>
+            <el-tab-pane label="百科" name="baike"></el-tab-pane>
+            <el-tab-pane label="活动" name="activties"></el-tab-pane>
         </el-tabs>
     </div>
     </center>
 
-    <el-carousel indicator-position="outside">
-        <el-carousel-item v-for="item in 4" :key="item">
-        <h3>{{ item }}</h3>
-        </el-carousel-item>
-    </el-carousel>
-
-    <p>公告</p>
-    <el-divider></el-divider>
-    <div v-for="(item, index) in articleList" :key="index">
-        <el-card class="box-card article_card">
-            <div slot="header">
-                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
-            </div>
-            <el-row>
-                    <el-col :span="8">
-                        <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
-                    </el-col>
-                    <!-- <el-col :span="1"></el-col> -->
-                    <el-col :span="15" :offset="1">
-                        <h4>{{item.title}}</h4>
-                        <p>{{item.content}}</p>
-                    </el-col>
-            </el-row>
-            <!-- <div slot="header" class="clearfix">
-                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
-            </div> -->
-            
-        </el-card>
-    </div>
-    <el-link type="primary">查看更多</el-link>
-    
-    <center>
-    <div class="block">
-        <el-pagination
-            layout="prev, pager, next"
-            :total="50">
-        </el-pagination>
-    </div>
-    </center>
+    <router-view></router-view>
 
   
 </div>
@@ -75,7 +37,11 @@ export default {
     },
     data() {
         return {
+            activeName: 'index',
             articleList: [
+                {
+                    title: 'hhh1'
+                },
                 {
                     title: 'hhh1'
                 },
@@ -94,6 +60,9 @@ export default {
         },
         handleClose(key, keyPath) {
             console.log(key, keyPath);
+        },
+        handleTabClick(tab, event) {
+            this.$router.push('/article/'+tab.name);
         }
     }
 }
@@ -111,7 +80,9 @@ export default {
     }
     
     .article_card {
-        margin:1rem 0rem;
+        margin:0.3rem 0rem;
+        display: inline-block;
+        width: 100%;
     }
 }
 
@@ -122,7 +93,9 @@ export default {
     }
     
     .article_card {
-        margin: 1rem 2rem;
+        margin: 0.3rem 1rem;
+        display: inline-block;
+        width: 45%;
     }
 }
 

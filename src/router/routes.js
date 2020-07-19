@@ -7,6 +7,9 @@ import PicturesInfo from '../views/picture/PicturesInfo.vue'
 import Edit from '../views/article/Edit.vue'
 import ArticleIndex from '../views/article/Index.vue'
 
+import News from '../views/article/Info/News'
+import AritcleHome from '../views/article/Home.vue'
+
 Vue.use(VueRouter);
 
 
@@ -32,12 +35,16 @@ const routers = [
     {
       path: '/article',
       component: ArticleIndex,
-//       children: [ 
-//   　　　{ 
-//   　　　　path: 'test', 
-// 　　　    component: Login 
-//     　　}
-//       ]
+      children: [ 
+        { 
+  　　　　path: '/', 
+　　　    component: AritcleHome
+        },
+  　　　{ 
+  　　　　path: 'news', 
+　　　    component: News
+    　　}
+      ]
     },
     {
       path: '/test',
