@@ -83,6 +83,7 @@ export default {
         margin:0.3rem 0rem;
         display: inline-block;
         width: 100%;
+        font-size: 12px;
     }
 }
 
