@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import Index from '../views/Index.vue'
 import PicturesIndex from '../views/picture/PicturesIndex.vue'
 import PicturesInfo from '../views/picture/PicturesInfo.vue'
-import Edit from '../views/article/Edit.vue'
+import Edit from '../views/article/EditT.vue'
 import ArticleIndex from '../views/article/Index.vue'
 
 import News from '../views/article/Info/News'

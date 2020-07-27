@@ -73,34 +73,32 @@ export default {
             //其他
             activeName: 'index',
             articleList: [
-                {
-                    title: 'hhh1',
-                    content: '哈哈哈哈哈这是一篇文章内容啦啦啦啦啦啦阿文滴滴答答滴滴答答滴滴答答滴滴答答',
-                    view: 20,
-                    tag: 'test'
-                },
-                {
-                    title: 'hhh1',
-                    content: '哈哈哈哈哈这是一篇文章内容',
-                    view: 20,
-                    tag: 'test'
-                },
-                {
-                    title: 'hhh1',
-                    content: '哈哈哈哈哈这是一篇文章内容',
-                    view: 20,
-                    tag: 'test'
-                },
-                {
-                    title: 'hhh1',
-                    content: '哈哈哈哈哈这是一篇文章内容',
-                    view: 20,
-                    tag: 'test'
-                },
-                
+                // {
+                //     title: 'hhh1',
+                //     content: '哈哈哈哈哈这是一篇文章内容啦啦啦啦啦啦阿文滴滴答答滴滴答答滴滴答答滴滴答答',
+                //     view: 20,
+                //     tag: 'test'
+                // },
             ]
         }
     },
+    methods: {
+        getNews() {
+            let formData = new FormData();
+            formData.append('count', 18);
+            formData.append('page', 1);
+            formData.append('category', 'News');
+            this.$axios.post(this.$store.state.url+'article/getArticle', formData).then(res => {
+                if (res.data.code === 0) {
+                    console.log(res);
+                    this.articleList = res.data.data;
+                }
+            })
+        }
+    },
+    created: function() {
+        this.getNews();
+    }
 }
 </script>
 

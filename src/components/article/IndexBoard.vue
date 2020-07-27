@@ -14,7 +14,7 @@
         ref="tree">
         <span class="custom-tree-node" slot-scope="{ node, data }">
             {{ node.label }}
-            <i href="www.baidu.com" class="el-icon-right"></i>
+            <i class="el-icon-right"></i>
         </span>
         </el-tree>
     </div>

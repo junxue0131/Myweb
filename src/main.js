@@ -12,9 +12,6 @@ import Vuex from 'vuex'
 import store from './store'
 
 
-
-
-
 import '@vant/touch-emulator';
 
 

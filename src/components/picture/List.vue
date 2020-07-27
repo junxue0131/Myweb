@@ -177,7 +177,7 @@ export default {
       formData.append('order', this.order);
 
       //请求后端接口
-      this.$axios.post('http://localhost:8081/picture/getPic', formData).then(res => {
+      this.$axios.post(this.$store.state.url+'picture/getPic', formData).then(res => {
         if (res.data.code === 0) {
           for (let i = 0; i < this.pageSize; i++) {
             let image = new Image();
