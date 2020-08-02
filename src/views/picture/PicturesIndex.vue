@@ -2,12 +2,12 @@
     <div>
         <!-- <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop> -->
         <!-- Header -->
-        <div style="height:50.4px">
-            <Header style="background:rgba(100, 88, 98, 0.5);"></Header>
+        <div style="padding: 0 2rem 0 2rem">
+            <Header></Header>
         </div>
 
         <SideBar></SideBar>
-                
+        
         <el-main style="padding: 0 0 0 0;">
             <List></List>
         </el-main>
@@ -20,7 +20,7 @@
 
 <script>
 import Footer from '../../components/Footer'
-import Header from '../../components/Header'
+import Header from '../../components/UserHeader'
 import SideBar from '../../components/Sidebar'
 import List from '../../components/picture/List'
 export default {

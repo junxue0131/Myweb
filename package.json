@@ -14,6 +14,7 @@
     "@vant/touch-emulator": "^1.2.0",
     "axios": "^0.19.2",
     "element-ui": "^2.13.2",
+    "moment": "^2.27.0",
     "save": "^2.4.0",
     "stylus": "^0.54.7",
     "tinymce": "^5.4.1",

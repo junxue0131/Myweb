@@ -1,12 +1,13 @@
 <template>
 <div>
     
-    <div style="height:50.4px">
-            <Header style="background:rgba(100, 88, 98, 0.5);"></Header>
+    <div style="padding: 0 2rem 0 2rem">
+        <Header></Header>
     </div>
+    
     <SideBar></SideBar>
 
-    <div style="height:40px"></div>
+    <div style="height:20px"></div>
     <el-page-header @back="back()" content="图片详情" style="margin: 0 2rem">
     </el-page-header>
     
@@ -14,6 +15,7 @@
     
     
     <div style="padding: 0 2rem 0 2rem">
+        
         <div style="display:inline-block">
             <h2>Pic NO.{{ id }}</h2><p>by {{ info.ownerId }}</p>
         </div>
@@ -37,6 +39,7 @@
 
         <h3 style="display:inline-block;">评论</h3>
         <el-button type="primary" style="float:right;margin: 1em 0 1em 0;" @click="show=true;reply=-1">发表评论</el-button>
+        <el-button type="danger" style="float:right;margin: 1em 1rem 1em 0;" @click="showReport = true">举报</el-button>
 
         <!-- 评论对话框 -->
         <van-dialog v-model="show" title="评论" :showCancelButton=true :showConfirmButton=false>
@@ -69,7 +72,7 @@
                 <div>
                     <el-divider></el-divider>
                     <p>{{comment.fromUid}}</p>
-                    <p v-if="comment.toUid !== -1">
+                    <p v-if="comment.toUid !== -1 && comment.toUid !== '-1'">
                         回复：@{{comment.toUid}}
                     </p>
                     <p>{{comment.content}}</p>
@@ -81,6 +84,21 @@
         </div>
     </div>
 
+    <van-dialog v-model="showReport" title="举报图片" show-cancel-button @confirm="report(reason)">
+        <van-form>
+         <van-field name="uploader">
+            <template #input>
+                <el-input
+                type="textarea"
+                :rows="3"
+                placeholder="请输入理由"
+                v-model="reason">
+                </el-input>
+            </template>
+            </van-field>
+        </van-form>
+    </van-dialog>
+
     
 
     <Footer></Footer>
@@ -89,8 +107,14 @@
 
 <script>
 import Footer from '../../components/Footer'
-import Header from '../../components/Header'
+import Header from '../../components/UserHeader'
 import SideBar from '../../components/Sidebar'
+import moment from 'moment';
+import Vue from 'vue';
+import { Dialog } from 'vant';
+
+// 全局注册
+Vue.use(Dialog);
 export default {
     components: {
         Header,
@@ -102,13 +126,16 @@ export default {
             id: this.$route.params.id,
             info: {},
             url: '',
-            List: ['666', '666', '666', '666', '666', '666', '666', '666'],
+            List: [],
             //评论表单
             show: false,
             reply: false,
             content: '',
             dialogImageUrl: '',
-            dialogVisible: false
+            dialogVisible: false,
+            //
+            showReport: false,
+            reason: ''
         }
     },
     methods: {
@@ -123,7 +150,7 @@ export default {
             this.$router.push({path: '/picIndex'});
         },
         getComment() {
-            this.$axios.get(this.$store.state.url+'pictureComment/getComment?picId='+this.id).then(res => {
+            this.$axios.get(this.$store.state.url+'picture/getComment?picId='+this.id).then(res => {
                 console.log(res.data.data);
                 this.List = res.data.data;
             })
@@ -138,7 +165,7 @@ export default {
 
             let config = {headers: {'Content-Type': 'multipart/form-data'}};
 
-            this.$axios.post(this.$store.state.url+'pictureComment/comment', formData, config).then(res => {
+            this.$axios.post(this.$store.state.url+'picture/comment', formData, config).then(res => {
                 console.log(res.data.data);
                 if (res.data.code === 0) {
                     this.$message.success('评论成功!');
@@ -146,6 +173,27 @@ export default {
                     this.$message.error('评论失败!');
                 }
                 this.show = false;
+            })
+            
+            formData.append('createTime', moment(new Date()).format('YYYY-MM-DD'));
+            var objData = {};
+            formData.forEach((value, key) => objData[key] = value);
+
+            this.List.push(objData);
+        },
+        //举报
+        report(reason) {
+            let formData = new FormData()
+            formData.append('picId', this.id);
+            formData.append('Uid', this.$store.state.Uid);
+            formData.append('reason', reason);
+            this.$axios.post(this.$store.state.url+'picture/report', formData).then(res => {
+                console.log(res.data.data);
+                if (res.data.code === 0) {
+                    this.$message.success('举报成功!');
+                } else {
+                    this.$message.error('举报失败!');
+                }
             })
         }
     },

@@ -16,10 +16,11 @@
             </el-button>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <div @click="reorder('false')"><el-dropdown-item icon="el-icon-circle-plus">最新发布</el-dropdown-item></div>
-            <div @click="reorder('true')"><el-dropdown-item icon="el-icon-circle-plus">最早发布</el-dropdown-item></div>
-            <el-dropdown-item icon="el-icon-circle-plus">最多浏览</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-plus">最多赞数</el-dropdown-item>
+            <div @click="reorder('最新发布')"><el-dropdown-item >最新发布</el-dropdown-item></div>
+            <div @click="reorder('最早发布')"><el-dropdown-item >最早发布</el-dropdown-item></div>
+            <div @click="reorder('最多浏览')"><el-dropdown-item>最多浏览</el-dropdown-item></div>
+            <div @click="reorder('最多赞数')"><el-dropdown-item>最多赞数</el-dropdown-item></div>
+            <div @click="reorder('最多评论')"><el-dropdown-item>最多评论</el-dropdown-item></div>
           </el-dropdown-menu>
         </el-dropdown>
       </van-col>
@@ -141,7 +142,7 @@ export default {
       List: [], //图片对象信息列表
       imgList: [], //img-box所需列表
       srcList: [], //展示img的url列表(缩略图)
-      order: false, //图片展示顺序，默认按最新地时间进行展示
+      order: '最新发布', //图片展示顺序，默认按最新地时间进行展示
 
       //分页器
       total: 17, // 总图片数
@@ -226,13 +227,19 @@ export default {
     },
     //上传提交动作
     onSubmit(f) {
-      this.$message('上传中...');
       let formData = new FormData()
 
       formData.append('file', this.file);
       formData.append('content', this.content);
 
       let config = {headers: {'Content-Type': 'multipart/form-data'}};
+
+      if (this.file === '') {
+        this.$message.error('请上传图片!');
+        return;
+      }
+
+      this.$message('上传中...');
 
       this.$axios.post(this.$store.state.url+'picture/upload', formData, config).then(res => {
           if (res.data.code === 0) {
@@ -245,6 +252,10 @@ export default {
         }
         this.show = false;
       })
+
+      this.imgList = [];
+      this.loadImage();
+      console.log('hhh');
     },
     //上传后文件检验
     beforeAvatarUpload(file) {
