@@ -1,7 +1,7 @@
 <template>
 <div>
     <div id="navButton" style="z-index:100;">
-			<a class="toggle" @click="drawer = true"></a>
+			<a class="toggle" @click="drawer = true" style="display:inline-block"></a>
 		</div>
 
 		<el-drawer
