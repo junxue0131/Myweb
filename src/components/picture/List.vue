@@ -133,7 +133,6 @@ Vue.use(Dialog);
 Vue.use(Pagination);
 
 
-
 export default {
   name: 'HeightCss',
   data() {
@@ -232,8 +231,6 @@ export default {
       formData.append('file', this.file);
       formData.append('content', this.content);
 
-      let config = {headers: {'Content-Type': 'multipart/form-data'}};
-
       if (this.file === '') {
         this.$message.error('请上传图片!');
         return;
@@ -241,7 +238,11 @@ export default {
 
       this.$message('上传中...');
 
-      this.$axios.post(this.$store.state.url+'picture/upload', formData, config).then(res => {
+      this.$axios.post(this.$store.state.url+'picture/upload', formData, {
+        headers: {
+          'Authorization': 'Bearer '+this.$store.state.token,
+          'Content-Type': 'multipart/form-data'
+        }}).then(res => {
           if (res.data.code === 0) {
             this.$message({
               message: '上传成功！',
@@ -295,7 +296,7 @@ export default {
     this.$axios.get(this.$store.state.url+'picture/total/').then(res => {
       this.total = res.data.data;
     })
-    
+    console.log(this.$store.state.token);
     
   }
 }

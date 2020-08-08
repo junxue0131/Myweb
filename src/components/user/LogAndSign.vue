@@ -30,6 +30,13 @@
                 placeholder="默认为信息门户密码"
                 :rules="[{ required: true, message: '请填写密码' }]"
             />
+            <van-field
+                v-model="password"
+                name="name"
+                label="昵称"
+                placeholder="给自己起个昵称吧"
+                :rules="[{ required: true, message: '请填写昵称' }]"
+            />
             <div style="margin: 16px;">
                 <van-button round block type="info" native-type="submit">
                 注册认证
@@ -92,6 +99,7 @@ export default {
             let formData = new FormData();
             formData.append('sid', values.sid);
             formData.append('pwd', values.pwd);
+            formData.append('name', values.name);
 
             this.$axios.post(this.$store.state.url+'user/signUp', formData).then(res => {
                 console.log(res);
@@ -118,6 +126,7 @@ export default {
                     this.$message.success("登录成功!");
                     this.$store.state.token = res.data.data.token;
                     this.$store.state.Uid = res.data.data.id;
+                    this.$store.state.name = res.data.data.name;
                     this.reload();
                 } else {
                     this.$message.error(res.data.msg);
