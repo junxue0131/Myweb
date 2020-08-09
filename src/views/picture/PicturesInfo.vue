@@ -71,13 +71,13 @@
             <div v-for="(comment, index) in List" :key="index">
                 <div>
                     <el-divider></el-divider>
-                    <p>{{comment.fromUid}}</p>
+                    <p>{{comment.fromName}}</p>
                     <p v-if="comment.toUid !== -1 && comment.toUid !== '-1'">
-                        回复：@{{comment.toUid}}
+                        回复：@{{comment.toName}}
                     </p>
                     <p>{{comment.content}}</p>
                     <p>发表于: {{comment.createTime}}</p>
-                    <el-link type="primary" @click="show=true;reply=comment.fromUid">回复</el-link>
+                    <el-link type="primary" @click="show=true;reply=comment.fromName">回复</el-link>
                     <el-divider></el-divider>
                 </div>
             </div>
@@ -140,7 +140,7 @@ export default {
     },
     methods: {
         getInfo() {
-            this.$axios.get(this.$store.state.url+'picture/getPic/'+this.id).then(res => {
+            this.$api.picture.getPicInfo(this.id).then(res => {
                 // console.log(res.data.data);
                 this.info = res.data.data;
                 this.url = 'http://'+this.info.picUrl;
@@ -150,7 +150,7 @@ export default {
             this.$router.push({path: '/picIndex'});
         },
         getComment() {
-            this.$axios.get(this.$store.state.url+'picture/getComment?picId='+this.id).then(res => {
+            this.$api.picture.getComment(this.id).then(res => {
                 console.log(res.data.data);
                 this.List = res.data.data;
             })
@@ -165,12 +165,12 @@ export default {
 
             let config = {headers: {'Content-Type': 'multipart/form-data'}};
 
-            this.$axios.post(this.$store.state.url+'picture/comment', formData, config).then(res => {
+            this.$api.picture.comment(formData).then(res => {
                 console.log(res.data.data);
                 if (res.data.code === 0) {
                     this.$message.success('评论成功!');
                 } else {
-                    this.$message.error('评论失败!');
+                    this.$message.error(res.data.msg);
                 }
                 this.show = false;
             })
@@ -187,7 +187,7 @@ export default {
             formData.append('picId', this.id);
             formData.append('Uid', this.$store.state.Uid);
             formData.append('reason', reason);
-            this.$axios.post(this.$store.state.url+'picture/report', formData).then(res => {
+            this.$api.picture.report(formData).then(res => {
                 console.log(res.data.data);
                 if (res.data.code === 0) {
                     this.$message.success('举报成功!');

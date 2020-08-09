@@ -101,7 +101,7 @@ export default {
             formData.append('pwd', values.pwd);
             formData.append('name', values.name);
 
-            this.$axios.post(this.$store.state.url+'user/signUp', formData).then(res => {
+            this.$api.user.signUp(formData).then(res => {
                 console.log(res);
                 if (res.data.code === 0) {
                     this.$message({
@@ -120,11 +120,11 @@ export default {
             formData.append('sid', values.sid);
             formData.append('pwd', values.pwd);
 
-            this.$axios.post(this.$store.state.url+'user/login', formData).then(res => {
+            this.$api.user.login(formData).then(res => {
                 console.log(res);
                 if (res.data.code === 0) {
                     this.$message.success("登录成功!");
-                    this.$store.state.token = res.data.data.token;
+                    this.$store.state.token = 'Bearer '+res.data.data.token;
                     this.$store.state.Uid = res.data.data.id;
                     this.$store.state.name = res.data.data.name;
                     this.reload();

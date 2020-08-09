@@ -14,7 +14,29 @@ const state = {
 }
 
 
+const getDefaultState = () => {
+    return  {
+
+        // url: 'https://lazy.cn1.utools.club/',
+
+        //用户数据
+        Uid: '-1',
+        name: '',
+        token: '',
+        //网络请求数据
+        url: 'http://localhost:8081/',
+    }
+}
+
+const mutations = {
+    resetState (state) {
+        Object.assign(state, getDefaultState())
+    }
+}
+
+
 
 export default new Vuex.Store({
     state,
+    mutations
 });

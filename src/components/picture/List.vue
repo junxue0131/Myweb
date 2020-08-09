@@ -177,7 +177,8 @@ export default {
       formData.append('order', this.order);
 
       //请求后端接口
-      this.$axios.post(this.$store.state.url+'picture/getPic', formData).then(res => {
+      this.$api.picture.getPic(formData).then(res => {
+        console.log(res)
         if (res.data.code === 0) {
           for (let i = 0; i < this.pageSize; i++) {
             let image = new Image();
@@ -238,11 +239,7 @@ export default {
 
       this.$message('上传中...');
 
-      this.$axios.post(this.$store.state.url+'picture/upload', formData, {
-        headers: {
-          'Authorization': 'Bearer '+this.$store.state.token,
-          'Content-Type': 'multipart/form-data'
-        }}).then(res => {
+      this.$api.picture.upload(formData).then(res => {
           if (res.data.code === 0) {
             this.$message({
               message: '上传成功！',
@@ -275,7 +272,8 @@ export default {
     like(index) {
       this.List[index].like += 1;
       Vue.set(this.List[index], "like", this.List[index].like);
-      this.$axios.get(this.$store.state.url+'picture/likePic/'+this.List[index].id).then(res => {
+      this.$api.picture.like(this.List[index].id).then(res => {
+        // console.log(res);
         if (res.data.code === 0) {
           // this.$message({
           //     message: '点赞成功！',
@@ -287,17 +285,15 @@ export default {
     //进入图片详情页，浏览量增加
     getPicInfo(id) {
       console.log(id);
-      this.$axios.get(this.$store.state.url+'picture/viewPic/'+id).then(res => {})
+      this.$api.picture.view(id).then(res => {})
       this.$router.push({path: '/picInfo/'+id})
     }
   },
   created() {
     this.loadImage()
-    this.$axios.get(this.$store.state.url+'picture/total/').then(res => {
+    this.$api.picture.total().then(res => {
       this.total = res.data.data;
     })
-    console.log(this.$store.state.token);
-    
   }
 }
 </script>
