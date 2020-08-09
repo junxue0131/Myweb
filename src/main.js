@@ -11,9 +11,13 @@ import App from './App'
 import Vuex from 'vuex'
 import store from './store'
 import api from './request/api' // 导入api接口
+import animated from 'animate.css' 
+
 
 
 import '@vant/touch-emulator';
+
+import "./assets/iconfont/iconfont.css"
 
 
 
@@ -24,6 +28,7 @@ Vue.use(VueRouter);
 Vue.use(ElementUI);
 Vue.use(Vuex)
 Vue.prototype.$axios = axios;
+Vue.use(animated)
 
 //挂载api到vue的原型上
 Vue.prototype.$api = api

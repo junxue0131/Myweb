@@ -270,8 +270,6 @@ export default {
     },
     //点赞
     like(index) {
-      this.List[index].like += 1;
-      Vue.set(this.List[index], "like", this.List[index].like);
       this.$api.picture.like(this.List[index].id).then(res => {
         // console.log(res);
         if (res.data.code === 0) {

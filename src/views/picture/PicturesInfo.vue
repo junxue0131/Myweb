@@ -37,14 +37,27 @@
             <div style="height:20px"></div>
         </div>
 
+        
+        <div id="out">
+        <div id="control">
+            <el-button type="primary" class="item" @click="show=true;reply=-1">发表评论</el-button>
+            <template v-if="isReported">
+                <el-button type="danger" class="item" @click="showReport = true">举报</el-button>
+            </template>
+            <template v-else>
+                <el-button type="danger" class="item" disabled="">已举报</el-button>
+            </template>
+            
+            <i class="iconfont zan" :class="state" @click="like()"></i>
+            
+        </div>
+        </div>
+            
+
+
         <h3 style="display:inline-block;">评论</h3>
-        <el-button type="primary" style="float:right;margin: 1em 0 1em 0;" @click="show=true;reply=-1">发表评论</el-button>
-        <template v-if="isReported">
-            <el-button type="danger" style="float:right;margin: 1em 1rem 1em 0;" @click="showReport = true">举报</el-button>
-        </template>
-        <template v-else>
-            <el-button type="danger" style="float:right;margin: 1em 1rem 1em 0;" disabled="">已举报</el-button>
-        </template>
+        
+        
 
         <!-- 评论对话框 -->
         <van-dialog v-model="show" title="评论" :showCancelButton=true :showConfirmButton=false>
@@ -117,6 +130,7 @@ import SideBar from '../../components/Sidebar'
 import moment from 'moment';
 import Vue from 'vue';
 import { Dialog } from 'vant';
+import VueStar from 'vue-star'
 
 // 全局注册
 Vue.use(Dialog);
@@ -124,7 +138,8 @@ export default {
     components: {
         Header,
         Footer,
-        SideBar
+        SideBar,
+        VueStar
     },
     data() {
         return {
@@ -142,7 +157,10 @@ export default {
             //
             showReport: false,
             reason: '',
-            isReported: false
+            isReported: false,
+            //赞图标状态
+            state: 'icon-zan1',
+            t: true
         }
     },
     methods: {
@@ -152,6 +170,7 @@ export default {
                 this.info = res.data.data;
                 this.url = 'http://'+this.info.picUrl;
                 this.isReport();
+                this.isLike();
             })
         },
         back() {
@@ -228,11 +247,45 @@ export default {
                 }
             }
             this.isReported = true;
+        },
+        isLike: function() {
+            console.log('hhh');
+            if (this.$store.state.Uid === -1) {
+                this.state = 'icon-zan1';
+                return;
+            }
+            for (let i = 0; i < this.$store.state.userInfo.like.length; i++) {
+                // console.log(this.$store.state.userInfo.like[i].picId)
+                if (this.$store.state.userInfo.like[i].picId == this.id) {
+                    this.state = 'icon-zan';
+                    return;
+                }
+            }
+            this.state = 'icon-zan1';
+        },
+        like() {
+            if (this.state === 'icon-zan1') {
+                this.state = 'icon-zan';
+            }
+            else {
+                this.state = 'icon-zan1';
+            }
+            this.$api.picture.like(this.id).then(res => {
+                if (res.data.code !== 0) {
+                    this.$message.error(res.data.msg);
+                }
+                //点赞完成后，重新请求一遍用户信息接口获取持久化信息
+                this.$api.user.getInfo().then(res => {
+                    this.$store.state.userInfo = res.data.data;
+                    console.log(this.$store.state.userInfo);
+                });
+            });
         }
     },
     created: function() {
         this.getInfo();
         this.getComment();
+        console.log(this.$store.state.userInfo);
         this.$router.beforeEach((to, from, next) => {
             window.scrollTo(0, 0);
             next()
@@ -267,5 +320,53 @@ body::-webkit-scrollbar {
 .el-message--error {
   z-index: 3000 !important;
 }
+
+
+@media screen and (min-width: 360px){
+    #control {
+        float: right;
+        display:inline-block;
+    }
+    
+	.item {
+        float: right;
+        margin: 1rem;
+    }
+
+    .zan {
+        margin: 0rem 1rem 0 0;
+        font-size: 40px;
+        float:right;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    #out {
+        width: 100%;    
+        height: 70px;
+    }
+
+
+    #control {
+        float: none;
+    }
+
+	.item {
+        margin: 1rem 0.5rem 1rem 0.5rem;
+    }
+
+    .zan {
+        margin: 0.6rem 1rem 0 0;
+        height: 30px;
+        font-size: 40px;
+        float:right;
+    }
+}
+
+.zan:active {
+    transform: scale(1.5);
+}
+
+
 
 </style>

@@ -1,0 +1,26 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1596984237682'); /* IE9 */
+  src: url('iconfont.eot?t=1596984237682#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAOkAAsAAAAAB7gAAANVAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDBgqDJIJnATYCJAMMCwgABCAFhG0HNBurBhFVlOdkPwrc2I2vtMk5yPUqez2lchJITAflgBp9FZVNbGoDBBDo3ZqOpd6oCNUle77VTP8jPzvTsM7jNEohJAjHH/dOm0JjP8tyW3v7py7AOKDAxh5AYVogAXnD2AUtcTUEsKQiB1KhUo0G+BjMTgJIj66d2+JntJiGQsFHcCtGGmQODr6aqm4As4Pvy3fyiQ8KR2P2rNOpYgfKfKr9uYceE42hhYeCN50ZYONAAzkAA9Kq0toEHUVzoLGq1DRnuhgENVUgigi4mtzd6B9PgbiY+TEAyALVioviOSwIfO7BgQRA61weIz4ZWAmVCYbeWmePkTW9Gb7qXCG7SBI9fpRIVt0rdOBOCnnwIIOdtgU1ZmsY+/D5RKsbNx4rixPbc/QZs2DaItFjF09fSPMNW5KopbU7TN+evPnyXbZNztWpH6dKtijRsmS7GhzIsWBJkjRwrxVVjlRoePh+6uWp069ennlzwoULlyZdmWZFigVLw/aTvEyTBQsS9NKNH+cKlS36dok3NHiBkoS1dL8EEmvU3DaNqpFg6qheB6bHrhT3XtwKsfv9GKjnpFyb7hAk8pR3YnhwPP7xYLD13siy5Umbm+4Q92Xihgn/F9jPLbwnSTx/7tVVMcs1K54sadM9V8t459N0G5Wlbc3hRzv9/DAuce+4Y2eVaZfvEWXX99s1ukSeY9Ov5PgQK76vCqg68+LGTVOfIVV0FSdhwfMFaQNAdFqv1mWD+G89W8f7Wb/hVqGOMVrHLvHbDw0Azxvl2Ak90WnidNfj34pN8Gt4HUuMJjB1egrX4Rp2rc5tRhSwmowfUgwQz2+4PGHnfBC+hAkonpSg+TKgDT4HOEIFwOUrDVZ27fhQfGRLFgDZvACION6gxHIatDg+aIP/giORP7jitAWrUfFnDGUqiPKEktGAekLQ42BtA4uw8IDu2klKCwLqBWkJASizIp9ocUCaos9ycxWzBUtjDw1YD7tuhInGiJozzzzVeW6rnpTpsV8J5REkMWQA5QkE2mhgvcpMFD5/gJyrjkQNiCr7BSKLUDsoZYoO6FY6dELcyjmLG6fCmAUsMuqBBjRDnc4ITNXNIqSxjB8QntRyq5ztKs2Wl/fvtwqwzPo6JVoM+nLYOZZytQIAAAA=') format('woff2'),
+  url('iconfont.woff?t=1596984237682') format('woff'),
+  url('iconfont.ttf?t=1596984237682') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1596984237682#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-zan:before {
+  content: "\e64f";
+  color: rgb(64, 158, 255)
+}
+
+.icon-zan1:before {
+  content: "\e76c";
+}
+
