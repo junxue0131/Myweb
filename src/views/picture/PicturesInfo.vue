@@ -39,11 +39,16 @@
 
         <h3 style="display:inline-block;">评论</h3>
         <el-button type="primary" style="float:right;margin: 1em 0 1em 0;" @click="show=true;reply=-1">发表评论</el-button>
-        <el-button type="danger" style="float:right;margin: 1em 1rem 1em 0;" @click="showReport = true">举报</el-button>
+        <template v-if="isReported">
+            <el-button type="danger" style="float:right;margin: 1em 1rem 1em 0;" @click="showReport = true">举报</el-button>
+        </template>
+        <template v-else>
+            <el-button type="danger" style="float:right;margin: 1em 1rem 1em 0;" disabled="">已举报</el-button>
+        </template>
 
         <!-- 评论对话框 -->
         <van-dialog v-model="show" title="评论" :showCancelButton=true :showConfirmButton=false>
-        <center><p v-if="reply !== -1">回复:{{reply}}</p></center>
+        <center><p v-if="reply !== -1">回复:{{replyName}}</p></center>
         <van-form @submit="comment()">
             <van-divider>自强Studio技术中心</van-divider>
             <van-field name="uploader">
@@ -77,7 +82,7 @@
                     </p>
                     <p>{{comment.content}}</p>
                     <p>发表于: {{comment.createTime}}</p>
-                    <el-link type="primary" @click="show=true;reply=comment.fromName">回复</el-link>
+                    <el-link type="primary" @click="show=true;replyName=comment.fromName;reply=comment.fromUid">回复</el-link>
                     <el-divider></el-divider>
                 </div>
             </div>
@@ -129,13 +134,15 @@ export default {
             List: [],
             //评论表单
             show: false,
-            reply: false,
+            reply: -1,
+            replyName: '',
             content: '',
             dialogImageUrl: '',
             dialogVisible: false,
             //
             showReport: false,
-            reason: ''
+            reason: '',
+            isReported: false
         }
     },
     methods: {
@@ -144,6 +151,7 @@ export default {
                 // console.log(res.data.data);
                 this.info = res.data.data;
                 this.url = 'http://'+this.info.picUrl;
+                this.isReport();
             })
         },
         back() {
@@ -166,7 +174,7 @@ export default {
             let config = {headers: {'Content-Type': 'multipart/form-data'}};
 
             this.$api.picture.comment(formData).then(res => {
-                console.log(res.data.data);
+                // console.log(res.data.data);
                 if (res.data.code === 0) {
                     this.$message.success('评论成功!');
                 } else {
@@ -174,8 +182,14 @@ export default {
                 }
                 this.show = false;
             })
+
+            if (this.$store.state.Uid === -1) {
+                return;
+            }
             
             formData.append('createTime', moment(new Date()).format('YYYY-MM-DD'));
+            formData.append('toName', this.replyName);
+            formData.append('fromName', this.$store.state.name);
             var objData = {};
             formData.forEach((value, key) => objData[key] = value);
 
@@ -188,13 +202,32 @@ export default {
             formData.append('Uid', this.$store.state.Uid);
             formData.append('reason', reason);
             this.$api.picture.report(formData).then(res => {
-                console.log(res.data.data);
+                // console.log(res.data.data);
                 if (res.data.code === 0) {
                     this.$message.success('举报成功!');
+                    this.isReported = false;    
                 } else {
-                    this.$message.error('举报失败!');
+                    this.$message.error(res.data.msg);
                 }
+                //举报接口完成后，重新请求一遍用户信息接口获取持久化信息
+                this.$api.user.getInfo().then(res => {
+                    this.$store.state.userInfo = res.data.data;
+                });
             })
+        },
+        isReport: function() {
+            if (this.$store.state.Uid === -1) {
+                this.isReported = true;
+                return;
+            }
+            for (let i = 0; i < this.$store.state.userInfo.report.length; i++) {
+                // console.log(this.$store.state.userInfo.report[i].picId)
+                if (this.$store.state.userInfo.report[i].picId == this.id) {
+                    this.isReported = false;
+                    return;
+                }
+            }
+            this.isReported = true;
         }
     },
     created: function() {

@@ -9,6 +9,10 @@ const user = {
     // 注册
     signUp(params) {
         return axios.post(`${base.url}/user/signUp`, params);
+    },
+    // 获取信息
+    getInfo() {
+        return axios.get(`${base.url}/user/getInfo`)
     }
 }
 

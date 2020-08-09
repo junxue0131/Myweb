@@ -9,6 +9,7 @@ const state = {
     Uid: -1,
     name: '',
     token: '',
+    userInfo: {},
     //网络请求数据
     url: 'http://localhost:8081/',
 }
@@ -16,13 +17,11 @@ const state = {
 
 const getDefaultState = () => {
     return  {
-
-        // url: 'https://lazy.cn1.utools.club/',
-
         //用户数据
-        Uid: '-1',
+        Uid: -1,
         name: '',
         token: '',
+        userInfo: {},
         //网络请求数据
         url: 'http://localhost:8081/',
     }

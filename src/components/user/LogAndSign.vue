@@ -127,11 +127,22 @@ export default {
                     this.$store.state.token = 'Bearer '+res.data.data.token;
                     this.$store.state.Uid = res.data.data.id;
                     this.$store.state.name = res.data.data.name;
+
+                    //获取用户信息
+                    this.$api.user.getInfo().then(res => {
+                        if (res.data.code === 0) {
+                            this.$store.state.userInfo = res.data.data;
+                        } else {
+                            this.$message.error("获取用户信息失败！");
+                        }
+                    })
                     this.reload();
                 } else {
                     this.$message.error(res.data.msg);
                 }
             })
+
+            
         }
     }
 }
