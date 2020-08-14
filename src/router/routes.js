@@ -27,6 +27,9 @@ const routers = [
     {
       path: '/picIndex',
       component: PicturesIndex,
+      meta: {
+        keepAlive: true
+      }
     },
     {
         path: '/picInfo/:id',

@@ -17,7 +17,7 @@
     <div style="padding: 0 2rem 0 2rem">
         
         <div style="display:inline-block">
-            <h2>Pic NO.{{ id }}</h2><p>by {{ info.ownerId }}</p>
+            <h2>Pic NO.{{ id }}</h2><p>by {{ info.name }}</p>
         </div>
         <el-tag style="float:right" id="pic_tag">{{info.picKind}}</el-tag>
         <center>
@@ -166,7 +166,7 @@ export default {
     methods: {
         getInfo() {
             this.$api.picture.getPicInfo(this.id).then(res => {
-                // console.log(res.data.data);
+                console.log(res.data.data);
                 this.info = res.data.data;
                 this.url = 'http://'+this.info.picUrl;
                 this.isReport();
@@ -270,7 +270,13 @@ export default {
             else {
                 this.state = 'icon-zan1';
             }
-            this.$api.picture.like(this.id).then(res => {
+            
+            let formData = new FormData()
+            formData.append('id', this.id);
+            formData.append('Uid', this.$store.state.Uid);
+
+            this.$api.picture.like(formData).then(res => {
+                console.log(res);
                 if (res.data.code !== 0) {
                     this.$message.error(res.data.msg);
                 }
@@ -348,6 +354,7 @@ body::-webkit-scrollbar {
     #out {
         width: 100%;    
         height: 70px;
+        display: block;
     }
 
 

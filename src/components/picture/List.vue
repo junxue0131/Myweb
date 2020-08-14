@@ -231,6 +231,7 @@ export default {
 
       formData.append('file', this.file);
       formData.append('content', this.content);
+      formData.append('id', this.$store.state.Uid);
 
       if (this.file === '') {
         this.$message.error('请上传图片!');
@@ -245,6 +246,7 @@ export default {
               message: '上传成功！',
               type: 'success',
           });
+          location.reload();
         } else {
             this.$message.error(res.data.msg);
         }

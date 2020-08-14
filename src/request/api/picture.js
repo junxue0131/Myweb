@@ -20,8 +20,8 @@ const picture = {
         return axios.get(`${base.url}/picture/getPic/${id}`);
     },
     // 点赞图片
-    like(id) {
-        return axios.get(`${base.url}/picture/likePic/${id}`);
+    like(params) {
+        return axios.post(`${base.url}/picture/likePic`, params);
     },
     // 浏览图片
     view(id) {

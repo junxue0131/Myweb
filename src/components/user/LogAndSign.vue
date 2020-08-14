@@ -32,7 +32,7 @@
                 :rules="[{ required: true, message: '请填写密码' }]"
             />
             <van-field
-                v-model="password"
+                v-model="name"
                 name="name"
                 label="昵称"
                 placeholder="给自己起个昵称吧"
