@@ -21,7 +21,7 @@
         </div>
         <el-tag style="float:right" id="pic_tag">{{info.picKind}}</el-tag>
         <center>
-        <el-image
+        <el-image class="picBoard"
         style="padding: 0 2rem 0 2rem;height:40rem"
         :src="url"
         fit="contain"
@@ -334,9 +334,13 @@ body::-webkit-scrollbar {
     }
 
     .zan {
-        margin: 0rem 1rem 0 0;
+        margin: 1rem 1rem 0 0;
         font-size: 40px;
         float:right;
+    }
+
+    .picBoard {
+
     }
 }
 
@@ -360,6 +364,10 @@ body::-webkit-scrollbar {
         height: 30px;
         font-size: 40px;
         float:right;
+    }
+
+    .picBoard {
+        object-fit: cover;
     }
 }
 

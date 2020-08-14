@@ -15,6 +15,7 @@
         </center>
 
         <van-form @submit="sign">
+            <van-divider>为了确保您是武大同学</van-divider>
             <van-field
                 v-model="username"
                 name="sid"

@@ -15,6 +15,7 @@
                     height:2rem;width:2rem"
                     src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                 </span>
+                <div style="position: relative;bottom:0.5rem;left:0.5rem;display:inline-block;">{{$store.state.name}}</div>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item disabled>{{$store.state.name}}</el-dropdown-item>
                     <el-dropdown-item divided><span @click="logout()">登出</span></el-dropdown-item>

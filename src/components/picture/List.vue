@@ -91,7 +91,7 @@
         </van-image>
         <center>
           <div>{{ List[index].picInfo }}</div>
-          <div><i class="el-icon-star-off" @click="like(index)"></i>{{ List[index].like }}赞  {{ List[index].view }}浏览</div>
+          <div><i class="el-icon-star-off"></i>{{ List[index].like }}赞  {{ List[index].view }}浏览</div>
         </center>
       </div>
     </div>
@@ -246,7 +246,7 @@ export default {
               type: 'success',
           });
         } else {
-          this.$message.error('上传失败!');
+            this.$message.error(res.data.msg);
         }
         this.show = false;
       })
