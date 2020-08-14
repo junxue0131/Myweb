@@ -88,6 +88,7 @@ export default {
             show: -1,
             username: '',
             password: '',
+            name: '',
         }
     },
     methods: {
