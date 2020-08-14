@@ -32,24 +32,24 @@ const routers = [
         path: '/picInfo/:id',
         component: PicturesInfo,
     },
-    {
-      path: '/article',
-      component: ArticleIndex,
-      children: [ 
-        { 
-  　　　　path: '/', 
-　　　    component: AritcleHome
-        },
-  　　　{ 
-  　　　　path: 'news', 
-　　　    component: News
-    　　}
-      ]
-    },
-    {
-      path: '/test',
-      component: Edit,
-    },
+//     {
+//       path: '/article',
+//       component: ArticleIndex,
+//       children: [ 
+//         { 
+//   　　　　path: '/', 
+// 　　　    component: AritcleHome
+//         },
+//   　　　{ 
+//   　　　　path: 'news', 
+// 　　　    component: News
+//     　　}
+//       ]
+//     },
+//     {
+//       path: '/test',
+//       component: Edit,
+//     },
 ]
   
 export default routers

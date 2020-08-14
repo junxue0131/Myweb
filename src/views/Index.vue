@@ -20,10 +20,10 @@
 							<h2>ZQ HOME</h2>
 						</header>
 						<br />
-						<h3>你好，武大人</h3>
-						<h3>欢迎来到 <strong>自强主站</strong></h3>
-						<h3>本站希望为每个同学创造</h3>
-						<h3>便利与感动</h3>
+						<h3>你好，</h3>
+						<h3>欢迎来到 <strong>ZqHome</strong></h3>
+						<!-- <h3>本站希望为每个同学创造</h3>
+						<h3>便利与感动</h3> -->
                         <br />
                         <br />
                         <br />
@@ -31,7 +31,7 @@
                         <br />
                         <br />
                         <br />
-						<br>by <a href="http://ziqiang.net.cn">ZiqiangStudio</a>
+						<br>Created by <a href="http://ziqiang.net.cn">ZiqiangStudio</a>
                         <br />
                         <br />
                         <br />
@@ -39,11 +39,11 @@
 				</section>
 
         
-  		<Picture></Picture>
+  		<!-- <Picture></Picture>
 
 		<Resource></Resource>
 
-		<Article></Article>
+		<Article></Article> -->
 		
         
         <!-- Footer -->
@@ -107,6 +107,10 @@ html {
 body::-webkit-scrollbar {
 	display: none;
 	overflow-x:hidden;
+}
+
+#banner {
+	height: 40rem;
 }
 
 
